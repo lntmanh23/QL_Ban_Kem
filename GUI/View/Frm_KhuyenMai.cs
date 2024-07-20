@@ -50,7 +50,9 @@ namespace GUI.View
             DateTime batdau = dateNgayBatDauKM.Value;
             DateTime ketthuc = dateNgayKetThucKm.Value;
             string giatri = txt_GiaTriKM.Text;
-            int trangthai = cbb_TrangThaiKM.SelectedIndex;
+
+            int trangthai = Convert.ToInt32(cbb_TrangThaiKM.Text);
+
             GiamGia giamGia = new GiamGia() { TenGiamGia = tenkm,LoaiGiamGia = loaikm,NgayBatDau = batdau,NgayKetThuc = ketthuc,GiaTri = giatri,TrangThai = trangthai};
             giamGiaServices.CreateGiamGia(giamGia);
             LoadKhuyenMai();

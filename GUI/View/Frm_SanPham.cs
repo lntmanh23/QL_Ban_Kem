@@ -27,7 +27,9 @@ namespace GUI.View
             string tensp = txt_TenSP.Text;
             int gia = Convert.ToInt32(txt_DonGia.Text);
             int soluong = Convert.ToInt32(txt_SoLuongSP.Text);
-            int trangthai = cbb_TrangThaiSP.SelectedIndex;
+
+            int trangthai = Convert.ToInt32(cbb_TrangThaiSP.Text);
+
             SanPham sp = new SanPham() { GiaSanPham = gia,TenSanPham = tensp,SoLuong = soluong,TrangThai = trangthai};
             MessageBox.Show(SanPhamServices.CreateSanPham(sp));
             LoadSanPham();
