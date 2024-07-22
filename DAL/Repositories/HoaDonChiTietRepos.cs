@@ -20,6 +20,10 @@ namespace DAL.Repositories
             return _context.HoaDonChiTiets.ToList(); // Lấy ra toàn bộ danh sách sản phẩm
 
         }
+        public List<HoaDonChiTiet> GeGetHD_HDCT()
+        {
+            return _context.HoaDonChiTiets.ToList();
+        }
         public HoaDonChiTiet GetById(int id)
         {
             return _context.HoaDonChiTiets.Find(id);

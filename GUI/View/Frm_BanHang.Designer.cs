@@ -138,6 +138,7 @@
             // 
             // dtg_TaoHoaDon
             // 
+            dtg_TaoHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtg_TaoHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_TaoHoaDon.Location = new Point(6, 54);
             dtg_TaoHoaDon.Name = "dtg_TaoHoaDon";
@@ -386,6 +387,7 @@
             Controls.Add(panel1);
             Name = "Frm_BanHang";
             Text = "Bán hàng";
+            Load += Frm_BanHang_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
