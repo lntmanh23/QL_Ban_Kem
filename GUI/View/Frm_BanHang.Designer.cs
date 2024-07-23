@@ -45,10 +45,8 @@
             txtTienThua = new TextBox();
             txt_TienKhachTra = new TextBox();
             cbb_LoaiThanhToan = new ComboBox();
-            cbb_ListBan = new ComboBox();
             txt_TongTienHoaDon = new TextBox();
             txt_TongTienSP = new TextBox();
-            label9 = new Label();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
@@ -57,7 +55,7 @@
             panel5 = new Panel();
             dtg_HoaDonCho = new DataGridView();
             label3 = new Label();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tlp_SanPham = new TableLayoutPanel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtg_TaoHoaDon).BeginInit();
@@ -176,10 +174,8 @@
             panel4.Controls.Add(txtTienThua);
             panel4.Controls.Add(txt_TienKhachTra);
             panel4.Controls.Add(cbb_LoaiThanhToan);
-            panel4.Controls.Add(cbb_ListBan);
             panel4.Controls.Add(txt_TongTienHoaDon);
             panel4.Controls.Add(txt_TongTienSP);
-            panel4.Controls.Add(label9);
             panel4.Controls.Add(label8);
             panel4.Controls.Add(label7);
             panel4.Controls.Add(label6);
@@ -226,7 +222,7 @@
             // txtTienThua
             // 
             txtTienThua.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtTienThua.Location = new Point(581, 199);
+            txtTienThua.Location = new Point(581, 182);
             txtTienThua.Name = "txtTienThua";
             txtTienThua.Size = new Size(194, 38);
             txtTienThua.TabIndex = 11;
@@ -234,7 +230,7 @@
             // txt_TienKhachTra
             // 
             txt_TienKhachTra.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_TienKhachTra.Location = new Point(244, 199);
+            txt_TienKhachTra.Location = new Point(244, 182);
             txt_TienKhachTra.Name = "txt_TienKhachTra";
             txt_TienKhachTra.Size = new Size(203, 38);
             txt_TienKhachTra.TabIndex = 10;
@@ -248,19 +244,10 @@
             cbb_LoaiThanhToan.Size = new Size(531, 39);
             cbb_LoaiThanhToan.TabIndex = 9;
             // 
-            // cbb_ListBan
-            // 
-            cbb_ListBan.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cbb_ListBan.FormattingEnabled = true;
-            cbb_ListBan.Location = new Point(244, 134);
-            cbb_ListBan.Name = "cbb_ListBan";
-            cbb_ListBan.Size = new Size(531, 39);
-            cbb_ListBan.TabIndex = 8;
-            // 
             // txt_TongTienHoaDon
             // 
             txt_TongTienHoaDon.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_TongTienHoaDon.Location = new Point(244, 71);
+            txt_TongTienHoaDon.Location = new Point(244, 94);
             txt_TongTienHoaDon.Name = "txt_TongTienHoaDon";
             txt_TongTienHoaDon.Size = new Size(531, 38);
             txt_TongTienHoaDon.TabIndex = 7;
@@ -272,16 +259,6 @@
             txt_TongTienSP.Name = "txt_TongTienSP";
             txt_TongTienSP.Size = new Size(531, 38);
             txt_TongTienSP.TabIndex = 6;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(6, 142);
-            label9.Name = "label9";
-            label9.Size = new Size(61, 31);
-            label9.TabIndex = 5;
-            label9.Text = "Bàn:";
             // 
             // label8
             // 
@@ -297,7 +274,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(453, 202);
+            label7.Location = new Point(453, 185);
             label7.Name = "label7";
             label7.Size = new Size(122, 31);
             label7.TabIndex = 3;
@@ -307,7 +284,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(6, 202);
+            label6.Location = new Point(6, 185);
             label6.Name = "label6";
             label6.Size = new Size(172, 31);
             label6.TabIndex = 2;
@@ -317,7 +294,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(6, 78);
+            label5.Location = new Point(6, 101);
             label5.Name = "label5";
             label5.Size = new Size(218, 31);
             label5.TabIndex = 1;
@@ -337,42 +314,44 @@
             // 
             panel5.Controls.Add(dtg_HoaDonCho);
             panel5.Controls.Add(label3);
-            panel5.Location = new Point(3, 650);
+            panel5.Location = new Point(3, 710);
             panel5.Name = "panel5";
-            panel5.Size = new Size(813, 326);
+            panel5.Size = new Size(813, 266);
             panel5.TabIndex = 5;
             // 
             // dtg_HoaDonCho
             // 
             dtg_HoaDonCho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtg_HoaDonCho.Location = new Point(9, 41);
+            dtg_HoaDonCho.Location = new Point(9, 40);
             dtg_HoaDonCho.Name = "dtg_HoaDonCho";
             dtg_HoaDonCho.RowHeadersWidth = 51;
-            dtg_HoaDonCho.Size = new Size(793, 282);
+            dtg_HoaDonCho.Size = new Size(793, 217);
             dtg_HoaDonCho.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(9, 10);
+            label3.Location = new Point(9, 11);
             label3.Name = "label3";
             label3.Size = new Size(140, 28);
             label3.TabIndex = 0;
             label3.Text = "Hóa đơn chờ:";
             // 
-            // tableLayoutPanel1
+            // tlp_SanPham
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Location = new Point(3, 98);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(813, 546);
-            tableLayoutPanel1.TabIndex = 7;
+            tlp_SanPham.AutoScroll = true;
+            tlp_SanPham.ColumnCount = 3;
+            tlp_SanPham.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_SanPham.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_SanPham.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 268F));
+            tlp_SanPham.Location = new Point(3, 98);
+            tlp_SanPham.Name = "tlp_SanPham";
+            tlp_SanPham.RowCount = 2;
+            tlp_SanPham.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_SanPham.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_SanPham.Size = new Size(813, 606);
+            tlp_SanPham.TabIndex = 7;
             // 
             // Frm_BanHang
             // 
@@ -380,7 +359,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MistyRose;
             ClientSize = new Size(1609, 979);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tlp_SanPham);
             Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(panel2);
@@ -414,16 +393,14 @@
 		private Button btn_TaoHoaDon;
 		private DataGridView dtg_HoaDonCho;
 		private Label label3;
-		private TableLayoutPanel tableLayoutPanel1;
+		private TableLayoutPanel tlp_SanPham;
 		private Button btn_SuaHoaDon;
 		private DataGridView dtg_TaoHoaDon;
-		private Label label9;
 		private Label label8;
 		private Label label7;
 		private Label label6;
 		private Label label5;
 		private Label label4;
-		private ComboBox cbb_ListBan;
 		private TextBox txt_TongTienHoaDon;
 		private TextBox txt_TongTienSP;
 		private TextBox txtTienThua;
