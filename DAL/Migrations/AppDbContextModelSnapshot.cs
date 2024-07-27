@@ -116,6 +116,9 @@ namespace DAL.Migrations
                     b.Property<DateTime>("NgayLapHoaDon")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("SoLuongMua")
+                        .HasColumnType("int");
+
                     b.Property<string>("ThanhTien")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -162,6 +165,10 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AnhSanPham")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GiaSanPham")
                         .HasColumnType("int");

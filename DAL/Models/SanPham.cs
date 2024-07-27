@@ -18,6 +18,7 @@ namespace DAL.Models
         public int GiaSanPham { get; set; }
         public int SoLuong { get; set; }
         public int TrangThai { get; set; }
+        public string AnhSanPham { get; set; }
         public virtual List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public virtual List<LoaiSanPham > LoaiSanPhams { get; set; }
 

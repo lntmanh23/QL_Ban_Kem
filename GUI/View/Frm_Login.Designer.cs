@@ -94,6 +94,7 @@
             btn_Login.TabIndex = 4;
             btn_Login.Text = "Đăng nhập";
             btn_Login.UseVisualStyleBackColor = false;
+            btn_Login.Click += btn_Login_Click;
             // 
             // radio_SavePass
             // 

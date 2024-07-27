@@ -24,7 +24,7 @@ namespace DAL.Repositories
         {
             return _context.HoaDons.Find(id);
         }
-        public bool CreateSP(HoaDon hd)
+        public bool CreateHD(HoaDon hd)
         {
             try
             {
@@ -34,6 +34,37 @@ namespace DAL.Repositories
             }
             catch (Exception)
             {
+                return false;
+            }
+        }
+        public bool DeleteHD(int id)
+        {
+            try
+            {
+                var delete = _context.HoaDons.Find(id);
+                _context.HoaDons.Remove(delete);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+        public bool UpdateHD(HoaDon hoadon,int id)
+        {
+            try
+            {
+                var update = _context.HoaDons.Find(id);
+                update = hoadon;    
+                _context.HoaDons.Update(update);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
                 return false;
             }
         }

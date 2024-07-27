@@ -32,7 +32,7 @@
             dtgHoaDonChiTiet = new DataGridView();
             label1 = new Label();
             panel2 = new Panel();
-            button2 = new Button();
+            btnLocHoaDon = new Button();
             cbbTrangThaiHd = new ComboBox();
             dateDenNgay = new DateTimePicker();
             dateTuNgay = new DateTimePicker();
@@ -60,6 +60,7 @@
             // 
             // dtgHoaDonChiTiet
             // 
+            dtgHoaDonChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgHoaDonChiTiet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgHoaDonChiTiet.Location = new Point(3, 76);
             dtgHoaDonChiTiet.Name = "dtgHoaDonChiTiet";
@@ -79,7 +80,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(button2);
+            panel2.Controls.Add(btnLocHoaDon);
             panel2.Controls.Add(cbbTrangThaiHd);
             panel2.Controls.Add(dateDenNgay);
             panel2.Controls.Add(dateTuNgay);
@@ -95,37 +96,38 @@
             panel2.Size = new Size(1585, 483);
             panel2.TabIndex = 2;
             // 
-            // button2
+            // btnLocHoaDon
             // 
-            button2.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(1409, 67);
-            button2.Name = "button2";
-            button2.Size = new Size(156, 42);
-            button2.TabIndex = 10;
-            button2.Text = "Lọc";
-            button2.TextImageRelation = TextImageRelation.ImageAboveText;
-            button2.UseVisualStyleBackColor = true;
+            btnLocHoaDon.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLocHoaDon.Location = new Point(1439, 66);
+            btnLocHoaDon.Name = "btnLocHoaDon";
+            btnLocHoaDon.Size = new Size(121, 42);
+            btnLocHoaDon.TabIndex = 10;
+            btnLocHoaDon.Text = "Lọc";
+            btnLocHoaDon.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnLocHoaDon.UseVisualStyleBackColor = true;
+            btnLocHoaDon.Click += btnLocHoaDon_Click;
             // 
             // cbbTrangThaiHd
             // 
-            cbbTrangThaiHd.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbTrangThaiHd.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbbTrangThaiHd.FormattingEnabled = true;
-            cbbTrangThaiHd.Location = new Point(1242, 65);
+            cbbTrangThaiHd.Location = new Point(1191, 67);
             cbbTrangThaiHd.Name = "cbbTrangThaiHd";
-            cbbTrangThaiHd.Size = new Size(151, 45);
+            cbbTrangThaiHd.Size = new Size(242, 39);
             cbbTrangThaiHd.TabIndex = 9;
             // 
             // dateDenNgay
             // 
             dateDenNgay.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateDenNgay.Location = new Point(964, 66);
+            dateDenNgay.Location = new Point(919, 67);
             dateDenNgay.Name = "dateDenNgay";
             dateDenNgay.Size = new Size(266, 27);
             dateDenNgay.TabIndex = 8;
             // 
             // dateTuNgay
             // 
-            dateTuNgay.Location = new Point(677, 66);
+            dateTuNgay.Location = new Point(647, 67);
             dateTuNgay.Name = "dateTuNgay";
             dateTuNgay.Size = new Size(266, 27);
             dateTuNgay.TabIndex = 7;
@@ -135,10 +137,11 @@
             btn_TimHoaDon.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_TimHoaDon.Location = new Point(520, 66);
             btn_TimHoaDon.Name = "btn_TimHoaDon";
-            btn_TimHoaDon.Size = new Size(145, 43);
+            btn_TimHoaDon.Size = new Size(121, 43);
             btn_TimHoaDon.TabIndex = 6;
             btn_TimHoaDon.Text = "Tìm";
             btn_TimHoaDon.UseVisualStyleBackColor = true;
+            btn_TimHoaDon.Click += btn_TimHoaDon_Click;
             // 
             // txt_TimHoaDon
             // 
@@ -152,7 +155,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label5.Location = new Point(1235, 13);
+            label5.Location = new Point(1191, 13);
             label5.Name = "label5";
             label5.Size = new Size(158, 38);
             label5.TabIndex = 4;
@@ -162,7 +165,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label4.Location = new Point(964, 13);
+            label4.Location = new Point(919, 13);
             label4.Name = "label4";
             label4.Size = new Size(150, 38);
             label4.TabIndex = 3;
@@ -172,7 +175,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label3.Location = new Point(677, 13);
+            label3.Location = new Point(647, 13);
             label3.Name = "label3";
             label3.Size = new Size(132, 38);
             label3.TabIndex = 2;
@@ -190,6 +193,7 @@
             // 
             // dtgHoaDon
             // 
+            dtgHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgHoaDon.Location = new Point(3, 128);
             dtgHoaDon.Name = "dtgHoaDon";
@@ -207,6 +211,7 @@
             Controls.Add(panel1);
             Name = "Frm_HoaDon";
             Text = "Hóa đơn";
+            Load += Frm_HoaDon_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHoaDonChiTiet).EndInit();
@@ -227,7 +232,7 @@
         private Label label3;
         private Label label2;
         private DataGridView dtgHoaDon;
-        private Button button2;
+        private Button btnLocHoaDon;
         private ComboBox cbbTrangThaiHd;
         private DateTimePicker dateDenNgay;
         private DateTimePicker dateTuNgay;

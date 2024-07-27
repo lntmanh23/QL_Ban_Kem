@@ -34,5 +34,6 @@ namespace DAL.Models
         public DbSet<LoaiSanPham> loaiSanPhams { get; set; }
         public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public DbSet<TaiKhoan> TaiKhoans { get; set; }
+        
     }
 }

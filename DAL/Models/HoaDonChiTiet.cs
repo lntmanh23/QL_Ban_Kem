@@ -18,7 +18,9 @@ namespace DAL.Models
         public int IdHoaDon { get; set; }
         public DateTime NgayLapHoaDon { get; set; }
         public string Gia { get; set; }
+        public int SoLuongMua {  get; set; }
         public string ThanhTien { get; set; }
+
         public string GhiChu {  get; set; }
         public HoaDon HoaDon { get; set; }
         public SanPham SanPham { get; set; }
