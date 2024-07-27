@@ -48,14 +48,14 @@ namespace GUI.View
             //    Frm_Main frm = new Frm_Main();
             //    frm.ShowDialog();
             //}
-            foreach (var t in tk)
-            {
-                if (t.TenTaiKhoan == txtUser.Text && t.MatKhau == txtPassWord.Text)
-                {
-                    Frm_Main frm = new Frm_Main();
-                       frm.ShowDialog();
-                }
-            }
+            //foreach (var t in tk)
+            //{
+            //    if (t.TenTaiKhoan == txtUser.Text && t.MatKhau == txtPassWord.Text)
+            //    {
+            //        Frm_Main frm = new Frm_Main();
+            //           frm.ShowDialog();
+            //    }
+            //}
         }
     }
 }

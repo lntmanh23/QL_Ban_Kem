@@ -1,4 +1,5 @@
 ﻿using BUS.Services;
+using BUS.ViewModels;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace GUI.View
             InitializeComponent();
 
         }
-        public void LoadView()
+        public void LoadHoaDon()
         {
 
 
@@ -99,36 +100,44 @@ namespace GUI.View
             tlp_SanPham.ColumnCount = 3;
             tlp_SanPham.RowCount = 2;
             Panel p = new Panel();
+            p.Name = sp.Id.ToString();
             p.Size = new Size(271, 303);
             PictureBox ptb = new PictureBox();
             ptb.Size = new Size(247, 218);
             ptb.Image = Image.FromFile(sp.AnhSanPham);
             ptb.Location = new Point(12, 12);
             ptb.SizeMode = PictureBoxSizeMode.StretchImage;
+            Label lbgia = new Label();
+            lbgia.Text = "Giá:";
+            lbgia.Location = new Point(12, 233);
+            Label giavalue = new Label();
+            giavalue.Location = new Point(12, 267);
+            giavalue.Text = sp.GiaSanPham+"VNĐ";
             Label lbsl = new Label();
-            lbsl.Text = "Số lượng:";
-            lbsl.Location = new Point(12, 233);
-            Label lbSlValue = new Label();
-            lbSlValue.Location = new Point(12, 274);
-            lbSlValue.Text = sp.SoLuong+"";
-            Label lbGia = new Label();
-            lbGia.Text = "Giá:";
-            lbGia.Location = new Point(144, 233);
-            Label lbGiaValue = new Label();
-            lbGiaValue.Text = sp.GiaSanPham +"";
-            lbGiaValue.Location = new Point(144, 274);
+            lbsl.Text = "Số lượng mua:";
+            lbsl.Location = new Point(188, 233);
+           
+            TextBox tbSlMua = new TextBox();
+            tbSlMua.Location = new Point(138, 264);
+            tbSlMua.Size = new Size(121, 27);
+            tbSlMua.PlaceholderText = "Số lượng mua";
+            tbSlMua.Name = "tblSlMua";
             p.Controls.Add(ptb);
+            p.Controls.Add(giavalue);
+            p.Controls.Add(lbgia);
             p.Controls.Add(lbsl);
-            p.Controls.Add(lbSlValue);
-            p.Controls.Add(lbGia);
-            p.Controls.Add(lbGiaValue);
+            p.Controls.Add(tbSlMua);
             ptb.Click += Ptb_Click;
             return p;
         }
 
         private void Ptb_Click(object? sender, EventArgs e)
         {
-            LoadView();
+            PictureBox p = (PictureBox)sender;
+            TextBox textBox = new TextBox();    
+            Control parentControl = p.Parent;
+            Panel p1 = (Panel)parentControl.Parent;
+            MessageBox.Show("Bạn vừa chọn mua sản phẩm có id là " +parentControl.Name+ "Với số lượng là" +textBox.Text);     
         }
     }
 }

@@ -10,6 +10,7 @@ namespace DAL.Repositories
     public class HoaDonChiTietRepos
     {
         AppDbContext _context = new AppDbContext();
+        
 
         public HoaDonChiTietRepos()
         {
@@ -24,6 +25,7 @@ namespace DAL.Repositories
         {
             return _context.HoaDonChiTiets.ToList();
         }
+        
         public HoaDonChiTiet GetById(int id)
         {
             return _context.HoaDonChiTiets.Find(id);
@@ -41,5 +43,6 @@ namespace DAL.Repositories
                 return false;
             }
         }
+        
     }
 }
