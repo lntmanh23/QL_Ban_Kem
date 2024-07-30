@@ -153,24 +153,23 @@ namespace GUI.View
             TextBox t = p1.Controls["tblSlMua"] as TextBox;
             Label gia = p1.Controls["giaSp"] as Label;
             int Giaban = Convert.ToInt32(gia.Text);
-            int soLuongMua = Convert.ToInt32(t.Text);
+            string soLuongMua = t.Text;
             Label ten = p1.Controls["TenSp"] as Label;
             string tensp = ten.Text;
             if (currentId == -1) MessageBox.Show("Bạn chưa chọn hóa đơn mua", "Thông báo");
-            //else if (soLuongMua == null) MessageBox.Show("Bạn chưa chọn số lượng mua");
+            else if (t.Text == "") MessageBox.Show("Bạn chưa chọn số lượng mua", "Thông báo");          
             else
             {
                 int IdHD = currentId;
                 int IdSp = Convert.ToInt32(p1.Name);
-                int SoLuong = soLuongMua;
+                int SoLuong = Convert.ToInt32(soLuongMua);
                 int Gia = Giaban;
                 int TrangThai = 1;
                 hoaDonChiTietServices.UpdateCongDon( IdSp, IdHD, SoLuong);
-                
-
                 LoadHDCT();
+                MessageBox.Show("Bạn vừa chọn mua " + ten.Text + ". Với số lượng là " + t.Text);
             }
-            MessageBox.Show("Bạn vừa chọn mua " + ten.Text + ". Với số lượng là " + t.Text);
+            
         }
         public void LoadHDCT()
         {
