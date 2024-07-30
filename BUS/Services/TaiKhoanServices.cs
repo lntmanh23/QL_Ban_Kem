@@ -16,6 +16,10 @@ namespace BUS.Services
         {
             taiKhoanRepos = new TaiKhoanRepos();
         }
+        public string Login(string tenTaiKhoan, string matKhau)
+        {
+            return taiKhoanRepos.CheckLogin(tenTaiKhoan, matKhau);
+        }
         public List<TaiKhoan> GetAllTaiKhoan()
         {
             return taiKhoanRepos.GetAllTaiKhoan();

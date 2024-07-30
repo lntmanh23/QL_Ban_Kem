@@ -15,6 +15,22 @@ namespace DAL.Repositories
         {
             _context = new AppDbContext();
         }
+        public string CheckLogin(string tenTaiKhoan,string matKhau)
+        {
+            try
+            {
+                var check = _context.TaiKhoans.FirstOrDefault(p => p.TenTaiKhoan == tenTaiKhoan && p.MatKhau == matKhau);
+                if (check != null)
+                {
+                    return check.Id.ToString();
+                }else return "0";
+            }
+            catch (Exception e)
+            {
+
+                return "1";
+            }
+        }
         public List<TaiKhoan> GetAllTaiKhoan()
         {
             return _context.TaiKhoans.ToList(); // Lấy ra toàn bộ danh sách sản phẩm

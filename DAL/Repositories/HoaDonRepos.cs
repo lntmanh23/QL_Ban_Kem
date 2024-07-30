@@ -24,16 +24,18 @@ namespace DAL.Repositories
         {
             return _context.HoaDons.Find(id);
         }
+        
         public bool CreateHD(HoaDon hd)
         {
             try
-            {
+            {               
                 _context.HoaDons.Add(hd);
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                
                 return false;
             }
         }
@@ -52,19 +54,34 @@ namespace DAL.Repositories
                 return false;
             }
         }
-        public bool UpdateHD(HoaDon hoadon,int id)
+        public bool DeleteHD_HDCT(int id) // Xóa kèm cả những HDCT của nó nếu không sẽ không thể xóa được
         {
             try
             {
-                var update = _context.HoaDons.Find(id);
-                update = hoadon;    
-                _context.HoaDons.Update(update);
+                var allhdct = _context.HoaDonChiTiets.Where(p => p.IdHoaDon == id);
+                _context.HoaDonChiTiets.RemoveRange(allhdct); // Xóa cả mục 1 lô 1 lốc
+                _context.SaveChanges();// Xong mới đi xóa hóa đơn 
+                var hd = _context.HoaDons.Find(id);
+                _context.HoaDons.Remove(hd);
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception)
             {
-
+                return false;
+            }
+        }
+        public bool UpdateHD(int id, int trangthai)
+        {
+            try
+            {
+                var hd = _context.HoaDons.Find(id);
+                hd.TrangThai = trangthai;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
             }
         }

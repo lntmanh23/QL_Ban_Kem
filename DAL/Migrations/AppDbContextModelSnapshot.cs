@@ -67,19 +67,19 @@ namespace DAL.Migrations
                     b.Property<string>("GiaDuocGiam")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdTaiKhoan")
+                    b.Property<int?>("IdTaiKhoan")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("NgayTao")
+                    b.Property<DateTime?>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Thue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrangThai")
+                    b.Property<int?>("TrangThai")
                         .HasColumnType("int");
 
-                    b.Property<int>("giamGiaId")
+                    b.Property<int?>("giamGiaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -228,16 +228,12 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.HoaDon", b =>
                 {
                     b.HasOne("DAL.Models.TaiKhoan", "TaiKhoan")
-                        .WithMany()
-                        .HasForeignKey("IdTaiKhoan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("HoaDons")
+                        .HasForeignKey("IdTaiKhoan");
 
                     b.HasOne("DAL.Models.GiamGia", "giamGia")
                         .WithMany("HoaDons")
-                        .HasForeignKey("giamGiaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("giamGiaId");
 
                     b.Navigation("TaiKhoan");
 
@@ -289,6 +285,11 @@ namespace DAL.Migrations
                     b.Navigation("HoaDonChiTiets");
 
                     b.Navigation("LoaiSanPhams");
+                });
+
+            modelBuilder.Entity("DAL.Models.TaiKhoan", b =>
+                {
+                    b.Navigation("HoaDons");
                 });
 #pragma warning restore 612, 618
         }

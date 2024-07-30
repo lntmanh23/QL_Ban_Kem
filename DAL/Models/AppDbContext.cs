@@ -27,6 +27,10 @@ namespace DAL.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<HoaDon>()
+            .HasOne(h => h.TaiKhoan)
+            .WithMany(t => t.HoaDons)
+            .HasForeignKey(h => h.IdTaiKhoan);
         }
         public DbSet<SanPham> sanPhams { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }

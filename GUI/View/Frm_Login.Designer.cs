@@ -28,46 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TextBox txtUser;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Login));
             panel1 = new Panel();
-            btn_Login = new Button();
-            radio_SavePass = new RadioButton();
+            checkBox1 = new CheckBox();
             txtPassWord = new TextBox();
+            txtUser = new TextBox();
+            btn_Login = new Button();
             label2 = new Label();
             label1 = new Label();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             lbClose = new Label();
-            txtUser = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // txtUser
-            // 
-            txtUser.BackColor = Color.FromArgb(255, 128, 128);
-            txtUser.BorderStyle = BorderStyle.None;
-            txtUser.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUser.ForeColor = Color.White;
-            txtUser.Location = new Point(94, 160);
-            txtUser.Name = "txtUser";
-            txtUser.PlaceholderText = "Nhập tài khoản";
-            txtUser.Size = new Size(180, 24);
-            txtUser.TabIndex = 1;
-            txtUser.TextAlign = HorizontalAlignment.Center;
-            // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(255, 128, 128);
-            panel1.Controls.Add(btn_Login);
-            panel1.Controls.Add(radio_SavePass);
+            panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(txtPassWord);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(txtUser);
+            panel1.Controls.Add(btn_Login);
+            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(pictureBox2);
@@ -78,6 +64,44 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(310, 400);
             panel1.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkBox1.ForeColor = Color.White;
+            checkBox1.Location = new Point(71, 275);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(177, 27);
+            checkBox1.TabIndex = 10;
+            checkBox1.Text = "Hiển thị mật khẩu";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // txtPassWord
+            // 
+            txtPassWord.BackColor = Color.FromArgb(255, 128, 128);
+            txtPassWord.BorderStyle = BorderStyle.None;
+            txtPassWord.Font = new Font("Segoe UI", 10.8F);
+            txtPassWord.ForeColor = Color.White;
+            txtPassWord.Location = new Point(94, 233);
+            txtPassWord.Name = "txtPassWord";
+            txtPassWord.PasswordChar = '*';
+            txtPassWord.PlaceholderText = "Nhập mật khẩu";
+            txtPassWord.Size = new Size(180, 24);
+            txtPassWord.TabIndex = 9;
+            // 
+            // txtUser
+            // 
+            txtUser.BackColor = Color.FromArgb(255, 128, 128);
+            txtUser.BorderStyle = BorderStyle.None;
+            txtUser.Font = new Font("Segoe UI", 10.8F);
+            txtUser.ForeColor = Color.White;
+            txtUser.Location = new Point(94, 157);
+            txtUser.Name = "txtUser";
+            txtUser.PlaceholderText = "Nhập tài khoản";
+            txtUser.Size = new Size(180, 24);
+            txtUser.TabIndex = 8;
             // 
             // btn_Login
             // 
@@ -95,33 +119,6 @@
             btn_Login.Text = "Đăng nhập";
             btn_Login.UseVisualStyleBackColor = false;
             btn_Login.Click += btn_Login_Click;
-            // 
-            // radio_SavePass
-            // 
-            radio_SavePass.AutoSize = true;
-            radio_SavePass.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            radio_SavePass.ForeColor = Color.White;
-            radio_SavePass.Location = new Point(94, 280);
-            radio_SavePass.Name = "radio_SavePass";
-            radio_SavePass.Size = new Size(146, 27);
-            radio_SavePass.TabIndex = 3;
-            radio_SavePass.TabStop = true;
-            radio_SavePass.Text = "Nhớ mật khẩu";
-            radio_SavePass.UseVisualStyleBackColor = true;
-            // 
-            // txtPassWord
-            // 
-            txtPassWord.BackColor = Color.FromArgb(255, 128, 128);
-            txtPassWord.BorderStyle = BorderStyle.None;
-            txtPassWord.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassWord.ForeColor = Color.White;
-            txtPassWord.Location = new Point(94, 235);
-            txtPassWord.Name = "txtPassWord";
-            txtPassWord.PasswordChar = '*';
-            txtPassWord.PlaceholderText = "Nhập mật khẩu";
-            txtPassWord.Size = new Size(180, 24);
-            txtPassWord.TabIndex = 2;
-            txtPassWord.TextAlign = HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -207,11 +204,11 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
-        private TextBox txtUser;
         private Label label1;
-        private TextBox txtPassWord;
         private Label label2;
-        private RadioButton radio_SavePass;
         private Button btn_Login;
+        private TextBox txtUser;
+        private TextBox txtPassWord;
+        private CheckBox checkBox1;
     }
 }
