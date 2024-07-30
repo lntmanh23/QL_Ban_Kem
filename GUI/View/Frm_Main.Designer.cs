@@ -354,6 +354,7 @@
             Name = "Frm_Main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main";
+            Load += Frm_Main_Load;
             panel1.ResumeLayout(false);
             panel15.ResumeLayout(false);
             panel14.ResumeLayout(false);

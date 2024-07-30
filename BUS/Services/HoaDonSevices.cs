@@ -10,48 +10,42 @@ namespace BUS.Services
 {
     public class HoaDonSevices
     {
-        HoaDonRepos hoaDonRepos = new HoaDonRepos();
-        HoaDonChiTietRepos HoaDonChiTietRepos = new HoaDonChiTietRepos();
-        TaiKhoanRepos taiKhoanRepos = new TaiKhoanRepos();
-        AppDbContext _context;
+        HoaDonRepos hoaDonRepos ;
+        
+        
 
         public HoaDonSevices()
         {
-            taiKhoanRepos = new TaiKhoanRepos();
+           
             hoaDonRepos = new HoaDonRepos();
-            HoaDonChiTietRepos = new HoaDonChiTietRepos();
-            _context = new AppDbContext();
+            
         }
         public List<HoaDon> GetAllHoaDon()
         {
-            //var hd = (from hoaDon in _context.HoaDons
-            //          join HDCT in _context.HoaDonChiTiets on hoaDon.Id equals HDCT.IdHoaDon
-            //          join taiKhoan in _context.TaiKhoans on hoaDon.IdTaiKhoan equals taiKhoan.Id
-
-            //          select new 
-            //          {
-            //              Id = hoaDon.Id,
-            //              TenTaiKhoan = taiKhoan.TenTaiKhoan,
-            //              NgayTao = hoaDon.NgayTao,
-            //              GiaDuocGiam = hoaDon.GiaDuocGiam,
-            //              TrangThai = hoaDon.TrangThai,
-            //              Thue = hoaDon.Thue,
-            //              ThanhTien = HDCT.ThanhTien,
-            //              GhiChu = HDCT.GhiChu,
-
-            //          }).ToList();
-           
+            
             return hoaDonRepos.GetAllHoaDon();
-            //return hoaDonRepos.GetAllHoaDon();
+            
         }
-        public string CreateHD(HoaDon hoaDon)
+        public string CreateHD(int idTk,int idGg)
         {
-            if (hoaDonRepos.CreateHD(hoaDon))
+            
+            HoaDon hd = new HoaDon()
             {
-                return "Thêm thành công";
+                IdTaiKhoan = idTk,
+                NgayTao = DateTime.Now,
+                GiaDuocGiam = "0",
+                Thue = "0",
+                TrangThai = 1,
+                giamGiaId = idGg,
+            };
+
+            if (hoaDonRepos.CreateHD(hd))
+            {
+                return "Tạo thành công";
             }
-            else return "Thêm thất bại";
+            else return "Tạo thất bại";
         }
+
         public string DeleteHD(int id)
         {
             if (hoaDonRepos.DeleteHD(id))
@@ -60,14 +54,15 @@ namespace BUS.Services
             }
             else return "Xóa thất bại";
         }
-        public string UpdateHD(HoaDon hoaDon,int id)
+        public string UpdateHD(int id,int trangthai)
         {
-            if (hoaDonRepos.UpdateHD(hoaDon,id))
+            if (hoaDonRepos.UpdateHD(id,trangthai))
             {
                 return "Sửa thành công";
             }
             else return "Sửa thất bại";
         }
+        
         
     }
 }

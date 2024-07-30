@@ -41,7 +41,7 @@
             panel4 = new Panel();
             btn_TachHoaDon = new Button();
             btn_ThanhToan = new Button();
-            button1 = new Button();
+            btn_HuyHD = new Button();
             txtTienThua = new TextBox();
             txt_TienKhachTra = new TextBox();
             cbb_LoaiThanhToan = new ComboBox();
@@ -56,6 +56,9 @@
             dtg_HoaDonCho = new DataGridView();
             label3 = new Label();
             tlp_SanPham = new TableLayoutPanel();
+            lbback = new Label();
+            lb_page = new Label();
+            lbnext = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtg_TaoHoaDon).BeginInit();
@@ -143,6 +146,7 @@
             dtg_TaoHoaDon.RowHeadersWidth = 51;
             dtg_TaoHoaDon.Size = new Size(772, 421);
             dtg_TaoHoaDon.TabIndex = 2;
+            dtg_TaoHoaDon.CellClick += dtg_TaoHoaDon_CellClick;
             // 
             // btn_SuaHoaDon
             // 
@@ -165,12 +169,13 @@
             btn_TaoHoaDon.TabIndex = 0;
             btn_TaoHoaDon.Text = "Tạo";
             btn_TaoHoaDon.UseVisualStyleBackColor = false;
+            btn_TaoHoaDon.Click += btn_TaoHoaDon_Click;
             // 
             // panel4
             // 
             panel4.Controls.Add(btn_TachHoaDon);
             panel4.Controls.Add(btn_ThanhToan);
-            panel4.Controls.Add(button1);
+            panel4.Controls.Add(btn_HuyHD);
             panel4.Controls.Add(txtTienThua);
             panel4.Controls.Add(txt_TienKhachTra);
             panel4.Controls.Add(cbb_LoaiThanhToan);
@@ -208,16 +213,17 @@
             btn_ThanhToan.Text = "Thanh Toán";
             btn_ThanhToan.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btn_HuyHD
             // 
-            button1.BackColor = Color.FromArgb(255, 192, 192);
-            button1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(18, 337);
-            button1.Name = "button1";
-            button1.Size = new Size(220, 122);
-            button1.TabIndex = 12;
-            button1.Text = "Hủy";
-            button1.UseVisualStyleBackColor = false;
+            btn_HuyHD.BackColor = Color.FromArgb(255, 192, 192);
+            btn_HuyHD.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_HuyHD.Location = new Point(18, 337);
+            btn_HuyHD.Name = "btn_HuyHD";
+            btn_HuyHD.Size = new Size(220, 122);
+            btn_HuyHD.TabIndex = 12;
+            btn_HuyHD.Text = "Hủy";
+            btn_HuyHD.UseVisualStyleBackColor = false;
+            btn_HuyHD.Click += btn_HuyHD_Click;
             // 
             // txtTienThua
             // 
@@ -314,29 +320,30 @@
             // 
             panel5.Controls.Add(dtg_HoaDonCho);
             panel5.Controls.Add(label3);
-            panel5.Location = new Point(3, 710);
+            panel5.Location = new Point(3, 756);
             panel5.Name = "panel5";
-            panel5.Size = new Size(813, 266);
+            panel5.Size = new Size(813, 220);
             panel5.TabIndex = 5;
             // 
             // dtg_HoaDonCho
             // 
+            dtg_HoaDonCho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtg_HoaDonCho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtg_HoaDonCho.Location = new Point(9, 40);
+            dtg_HoaDonCho.Location = new Point(9, 34);
             dtg_HoaDonCho.Name = "dtg_HoaDonCho";
             dtg_HoaDonCho.RowHeadersWidth = 51;
-            dtg_HoaDonCho.Size = new Size(793, 217);
+            dtg_HoaDonCho.Size = new Size(793, 183);
             dtg_HoaDonCho.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(9, 11);
+            label3.Location = new Point(3, 5);
             label3.Name = "label3";
-            label3.Size = new Size(140, 28);
+            label3.Size = new Size(172, 28);
             label3.TabIndex = 0;
-            label3.Text = "Hóa đơn chờ:";
+            label3.Text = "Hóa đơn chi tiết:";
             // 
             // tlp_SanPham
             // 
@@ -353,12 +360,45 @@
             tlp_SanPham.Size = new Size(813, 606);
             tlp_SanPham.TabIndex = 7;
             // 
+            // lbback
+            // 
+            lbback.AutoSize = true;
+            lbback.Location = new Point(254, 727);
+            lbback.Name = "lbback";
+            lbback.Size = new Size(29, 20);
+            lbback.TabIndex = 8;
+            lbback.Text = "<<";
+            lbback.Click += lbback_Click;
+            // 
+            // lb_page
+            // 
+            lb_page.AutoSize = true;
+            lb_page.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_page.Location = new Point(395, 727);
+            lb_page.Name = "lb_page";
+            lb_page.Size = new Size(22, 25);
+            lb_page.TabIndex = 9;
+            lb_page.Text = "1";
+            // 
+            // lbnext
+            // 
+            lbnext.AutoSize = true;
+            lbnext.Location = new Point(543, 727);
+            lbnext.Name = "lbnext";
+            lbnext.Size = new Size(29, 20);
+            lbnext.TabIndex = 10;
+            lbnext.Text = ">>";
+            lbnext.Click += lbnext_Click;
+            // 
             // Frm_BanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MistyRose;
             ClientSize = new Size(1609, 979);
+            Controls.Add(lbnext);
+            Controls.Add(lb_page);
+            Controls.Add(lbback);
             Controls.Add(tlp_SanPham);
             Controls.Add(panel5);
             Controls.Add(panel4);
@@ -377,6 +417,7 @@
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtg_HoaDonCho).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -407,7 +448,10 @@
 		private TextBox txt_TienKhachTra;
 		private ComboBox cbb_LoaiThanhToan;
 		private Button btn_ThanhToan;
-		private Button button1;
+		private Button btn_HuyHD;
 		private Button btn_TachHoaDon;
-	}
+        private Label lbback;
+        private Label lb_page;
+        private Label lbnext;
+    }
 }

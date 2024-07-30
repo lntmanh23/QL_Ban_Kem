@@ -33,13 +33,42 @@ namespace BUS.Services
         {
             return hoaDonChiTietRepos.GetAllHDCT();
         }
-        public string CreateHDCT(HoaDonChiTiet hdct)
+        public List<HoaDonChiTiet> GetAllByHD(int IdHd)
         {
-            if (hoaDonChiTietRepos.CreateHDCT(hdct))
+            return hoaDonChiTietRepos.GetAllByHD(IdHd);
+        }
+        public string Create(int soluong, int maSP, int MaHD)
+        {
+            if (hoaDonChiTietRepos.CreateHDCT(soluong, maSP, MaHD))
             {
                 return "Thêm thành công";
             }
-            else return "Thêm thất bại";
+            else
+            {
+                return "Thêm thất bại";
+            }
+        }
+        public string UpdateCongDon(int idsp, int idhd,int soluong)
+        {
+            var allhdct = hoaDonChiTietRepos.GetAllByHD(idhd);
+            var hdct =  allhdct.FirstOrDefault(p=>p.IdSanPham == idsp);
+            if(hdct != null)
+            {
+                HoaDonChiTietRepos repo = new HoaDonChiTietRepos();
+                repo.UpdateSL(soluong, hdct.Id);
+                return "Thành công";
+            }
+            else
+            {
+                if (hoaDonChiTietRepos.CreateHDCT(soluong, idsp, idhd))
+                {
+                    return "Sửa thành công";
+                }
+                else
+                {
+                    return "Sửa thất bại";
+                }
+            }
         }
         public List<HoaDonVm> GetHD_HDCT()
         {
@@ -61,5 +90,6 @@ namespace BUS.Services
                      }).ToList();
             return hd;
         }
+        
     }
 }

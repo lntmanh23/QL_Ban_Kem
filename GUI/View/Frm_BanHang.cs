@@ -1,6 +1,7 @@
 ﻿using BUS.Services;
 using BUS.ViewModels;
 using DAL.Models;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,25 +16,31 @@ namespace GUI.View
 {
     public partial class Frm_BanHang : Form
     {
-        static HoaDonSevices hoaDonSevices = new HoaDonSevices();
-        static SanPhamServices SanPhamServices = new SanPhamServices();
-        static HoaDonChiTietServices hoaDonChiTietServices = new HoaDonChiTietServices();
-        static List<SanPham> _lstSanPhams = SanPhamServices.GetAllSanPham();
+        private HoaDonSevices hoaDonSevices;
+        static SanPhamServices SanPhamServices;
+        private HoaDonChiTietServices hoaDonChiTietServices;
+        static List<SanPham> _lstSanPhams;
+        int idTk;
+        public int currentId = -1;
+        int selectedId = -1;
+        AppDbContext _context;
 
-        public Frm_BanHang()
+        public Frm_BanHang(int idTk)
         {
+            _context = new AppDbContext();
+            hoaDonSevices = new HoaDonSevices();
+            SanPhamServices = new SanPhamServices();
+            hoaDonChiTietServices = new HoaDonChiTietServices();
+            _lstSanPhams = SanPhamServices.GetAllSanPham();
             //SanPhamServices = new SanPhamServices();
             //_lstSanPhams = SanPhamServices.GetAllSanPham();
             //hoaDonChiTietServices = new HoaDonChiTietServices();
-
             //hoaDonSevices = new HoaDonSevices();
+            this.idTk = idTk;
             InitializeComponent();
-
         }
         public void LoadHoaDon()
         {
-
-
             dtg_TaoHoaDon.ColumnCount = 8;
             dtg_TaoHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
             dtg_TaoHoaDon.Columns[1].HeaderText = "Mã sản phẩm";
@@ -53,29 +60,30 @@ namespace GUI.View
         }
         private void Frm_BanHang_Load(object sender, EventArgs e)
         {
+            hoaDonSevices = new HoaDonSevices();
             //LoadView();
-            LoadToSpPanel();
+            LoadToSpPanel(Convert.ToInt32(lb_page.Text));
+            LoadHD();
         }
-        public void LoadToSpPanel()
+        public void LoadToSpPanel(int page)
         {
             tlp_SanPham.Controls.Clear();
-            int page = 1;
+            
             int numberOfPage = (int)Math.Ceiling((double)_lstSanPhams.Count / 6);
             if (page < 1 || page > numberOfPage) return;
-
             if (page * 6 - 6 < _lstSanPhams.Count)
             {
-                Panel s1 = CreateSPToPanel(_lstSanPhams[page*6-6]);
+                Panel s1 = CreateSPToPanel(_lstSanPhams[page * 6 - 6]);
                 tlp_SanPham.Controls.Add(s1, 0, 0);
             }
             if (page * 6 - 5 < _lstSanPhams.Count)
             {
-                Panel s2 = CreateSPToPanel(_lstSanPhams[page*6-5]);
+                Panel s2 = CreateSPToPanel(_lstSanPhams[page * 6 - 5]);
                 tlp_SanPham.Controls.Add(s2, 1, 0);
             }
             if (page * 6 - 4 < _lstSanPhams.Count)
             {
-                Panel s3 = CreateSPToPanel(_lstSanPhams[page*6-4]);
+                Panel s3 = CreateSPToPanel(_lstSanPhams[page * 6 - 4]);
                 tlp_SanPham.Controls.Add(s3, 2, 0);
             }
             if (page * 6 - 3 < _lstSanPhams.Count)
@@ -93,7 +101,6 @@ namespace GUI.View
                 Panel s6 = CreateSPToPanel(_lstSanPhams[page * 6 - 1]);
                 tlp_SanPham.Controls.Add(s6, 2, 1);
             }
-
         }
         public Panel CreateSPToPanel(SanPham sp)
         {
@@ -103,23 +110,30 @@ namespace GUI.View
             p.Name = sp.Id.ToString();
             p.Size = new Size(271, 303);
             PictureBox ptb = new PictureBox();
-            ptb.Size = new Size(247, 218);
+            ptb.Size = new Size(247, 185);
             ptb.Image = Image.FromFile(sp.AnhSanPham);
-            ptb.Location = new Point(12, 12);
+            ptb.Location = new Point(12, 7);
             ptb.SizeMode = PictureBoxSizeMode.StretchImage;
             Label lbgia = new Label();
             lbgia.Text = "Giá:";
-            lbgia.Location = new Point(12, 233);
+            lbgia.Location = new Point(12, 243);
             Label giavalue = new Label();
-            giavalue.Location = new Point(12, 267);
-            giavalue.Text = sp.GiaSanPham+"VNĐ";
+            Label Tensp = new Label();
+            Tensp.ForeColor = Color.Red;
+            Tensp.Font = new Font("Arial", 12, FontStyle.Bold);
+            Tensp.Text = sp.TenSanPham.ToString();
+            Tensp.Location = new Point(100, 206);
+            Tensp.Name = "TenSp";
+            giavalue.Location = new Point(12, 270);
+            giavalue.Text = sp.GiaSanPham + "";
+            giavalue.Name = "giaSp";
             Label lbsl = new Label();
-            lbsl.Text = "Số lượng mua:";
-            lbsl.Location = new Point(188, 233);
-           
+            lbsl.Text = "Số lượng:";
+            lbsl.Size = new Size(72, 20);
+            lbsl.Location = new Point(153, 243);
             TextBox tbSlMua = new TextBox();
-            tbSlMua.Location = new Point(138, 264);
-            tbSlMua.Size = new Size(121, 27);
+            tbSlMua.Location = new Point(153, 270);
+            tbSlMua.Size = new Size(106, 27);
             tbSlMua.PlaceholderText = "Số lượng mua";
             tbSlMua.Name = "tblSlMua";
             p.Controls.Add(ptb);
@@ -127,17 +141,109 @@ namespace GUI.View
             p.Controls.Add(lbgia);
             p.Controls.Add(lbsl);
             p.Controls.Add(tbSlMua);
+            p.Controls.Add(Tensp);
             ptb.Click += Ptb_Click;
             return p;
         }
-
         private void Ptb_Click(object? sender, EventArgs e)
         {
+            SanPham sp = new SanPham();
             PictureBox p = (PictureBox)sender;
-            TextBox textBox = new TextBox();    
-            Control parentControl = p.Parent;
-            Panel p1 = (Panel)parentControl.Parent;
-            MessageBox.Show("Bạn vừa chọn mua sản phẩm có id là " +parentControl.Name+ "Với số lượng là" +textBox.Text);     
+            Panel p1 = (Panel)p.Parent;
+            TextBox t = p1.Controls["tblSlMua"] as TextBox;
+            Label gia = p1.Controls["giaSp"] as Label;
+            int Giaban = Convert.ToInt32(gia.Text);
+            int soLuongMua = Convert.ToInt32(t.Text);
+            Label ten = p1.Controls["TenSp"] as Label;
+            string tensp = ten.Text;
+            if (currentId == -1) MessageBox.Show("Bạn chưa chọn hóa đơn mua", "Thông báo");
+            //else if (soLuongMua == null) MessageBox.Show("Bạn chưa chọn số lượng mua");
+            else
+            {
+                int IdHD = currentId;
+                int IdSp = Convert.ToInt32(p1.Name);
+                int SoLuong = soLuongMua;
+                int Gia = Giaban;
+                int TrangThai = 1;
+                hoaDonChiTietServices.UpdateCongDon( IdSp, IdHD, SoLuong);
+                
+
+                LoadHDCT();
+            }
+            MessageBox.Show("Bạn vừa chọn mua " + ten.Text + ". Với số lượng là " + t.Text);
+        }
+        public void LoadHDCT()
+        {
+            HoaDonChiTietRepos repos = new HoaDonChiTietRepos();
+            var allhdct = repos.GetAllByHD(currentId);
+            dtg_HoaDonCho.Rows.Clear();
+            
+            dtg_HoaDonCho.ColumnCount = 5;
+            dtg_HoaDonCho.Columns[0].HeaderText = "Mã hóa đơn";
+            dtg_HoaDonCho.Columns[1].HeaderText = "Mã sản phẩm";
+            dtg_HoaDonCho.Columns[2].HeaderText = "Giá bán";
+            dtg_HoaDonCho.Columns[3].HeaderText = "Số lượng";
+            dtg_HoaDonCho.Columns[4].HeaderText = "Thành tiền";
+            foreach (var data in allhdct)
+            {
+                int thanhtien = data.SoLuongMua * Convert.ToInt32(data.Gia);
+                dtg_HoaDonCho.Rows.Add(data.IdHoaDon, data.IdSanPham, data.Gia, data.SoLuongMua, thanhtien);
+            }
+        }
+        public void LoadHD()
+        {
+            var allhd = hoaDonSevices.GetAllHoaDon();
+            dtg_TaoHoaDon.Rows.Clear();
+            dtg_TaoHoaDon.ColumnCount = 6;
+            dtg_TaoHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
+            dtg_TaoHoaDon.Columns[1].HeaderText = "Mã tài khoản";
+            dtg_TaoHoaDon.Columns[2].HeaderText = "Ngày tạo";
+            dtg_TaoHoaDon.Columns[3].HeaderText = "Giá được giảm";
+            dtg_TaoHoaDon.Columns[4].HeaderText = "Thuế";
+            dtg_TaoHoaDon.Columns[5].HeaderText = "Trạng thái";
+            foreach (var hoaDon in allhd)
+            {
+                string trangthai = hoaDon.TrangThai == 0 ? "Chưa thanh toán" : "Đã thanh toán";
+                dtg_TaoHoaDon.Rows.Add(hoaDon.Id, hoaDon.IdTaiKhoan, hoaDon.NgayTao, hoaDon.GiaDuocGiam, hoaDon.Thue, hoaDon.TrangThai);
+            }
+        }
+        private void dtg_TaoHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dtg_TaoHoaDon.Rows[e.RowIndex];
+            currentId = (int)row.Cells[0].Value;
+            //MessageBox.Show("Bạn vừa chọn hóa đơn có mã là" + currentId.ToString());
+        }
+        private void btn_TaoHoaDon_Click(object sender, EventArgs e)
+        {
+            hoaDonSevices.CreateHD(idTk, 1);
+            LoadHD();
+        }
+
+        private void btn_HuyHD_Click(object sender, EventArgs e)
+        {
+            HoaDon hd = new HoaDon();
+            var id = _context.HoaDons.Find(hd.Id);
+            hoaDonSevices.DeleteHD(hd.Id);
+            LoadHD();
+        }
+
+        private void lbback_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(lb_page.Text) >1)
+            {
+                lb_page.Text = Convert.ToInt32(lb_page.Text) - 1 + "";
+                LoadToSpPanel(Convert.ToInt32(lb_page.Text));
+            }
+        }
+
+        private void lbnext_Click(object sender, EventArgs e)
+        {
+            if(Convert.ToInt32(lb_page.Text) < (int)Math.Ceiling((double)_lstSanPhams.Count / 6))
+            {
+                lb_page.Text = Convert.ToInt32(lb_page.Text) + 1 + "";
+                LoadToSpPanel(Convert.ToInt32(lb_page.Text));
+            }
+            
         }
     }
 }

@@ -38,24 +38,51 @@ namespace GUI.View
 
         private void btn_Login_Click(object sender, EventArgs e)
         {
+            if (txtUser != null && txtPassWord != null)
+            {
+                string tenTaiKhoan = txtUser.Text;
+                string matKhau = txtPassWord.Text;
+                if (TaiKhoanServices.Login(tenTaiKhoan, matKhau) == "0")
+                {
+                    MessageBox.Show("Đăng nhập thất bại", "Thông báo");
+                }
+                else if (TaiKhoanServices.Login(tenTaiKhoan, matKhau) == "1")
+                {
+                    MessageBox.Show("Đăng nhập thất bại", "Trùng tài khoản");
+                }
+                else
+                {
+                    int idTk = int.Parse(TaiKhoanServices.Login(tenTaiKhoan, matKhau));
+                    Frm_Main frmMain = new Frm_Main(idTk);
+                    
+                    frmMain.ShowDialog();
+                    this.Hide();
+                    frmMain.FormClosed += FrmMain_FormClosed;
+                    this.Show();
+                }
+            }
+            else
+            {
+                //MessageBox.Show("chưa đc khoeri tạo");
+            }
 
-            var tk = TaiKhoanServices.GetAllTaiKhoan();
-            //string taikhoan = tk.TenTaiKhoan;
-            //string matkhau = tk.MatKhau;
-            
-            //if(taikhoan == txtUser.Text && matkhau == txtPassWord.Text)
-            //{
-            //    Frm_Main frm = new Frm_Main();
-            //    frm.ShowDialog();
-            //}
-            //foreach (var t in tk)
-            //{
-            //    if (t.TenTaiKhoan == txtUser.Text && t.MatKhau == txtPassWord.Text)
-            //    {
-            //        Frm_Main frm = new Frm_Main();
-            //           frm.ShowDialog();
-            //    }
-            //}
+
+
+
+        }
+
+        private void FrmMain_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                txtPassWord.PasswordChar = '\0';
+            }
+            else txtPassWord.PasswordChar = '*';
         }
     }
 }
