@@ -61,6 +61,7 @@
             // dtgHoaDonChiTiet
             // 
             dtgHoaDonChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgHoaDonChiTiet.BackgroundColor = Color.White;
             dtgHoaDonChiTiet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgHoaDonChiTiet.Location = new Point(3, 76);
             dtgHoaDonChiTiet.Name = "dtgHoaDonChiTiet";
@@ -116,6 +117,7 @@
             cbbTrangThaiHd.Name = "cbbTrangThaiHd";
             cbbTrangThaiHd.Size = new Size(242, 39);
             cbbTrangThaiHd.TabIndex = 9;
+            cbbTrangThaiHd.SelectedIndexChanged += cbbTrangThaiHd_SelectedIndexChanged;
             // 
             // dateDenNgay
             // 
@@ -194,6 +196,7 @@
             // dtgHoaDon
             // 
             dtgHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgHoaDon.BackgroundColor = Color.White;
             dtgHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgHoaDon.Location = new Point(3, 128);
             dtgHoaDon.Name = "dtgHoaDon";

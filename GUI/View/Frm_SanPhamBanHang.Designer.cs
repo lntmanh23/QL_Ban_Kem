@@ -92,11 +92,12 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(100, 206);
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(56, 204);
             label5.Name = "label5";
-            label5.Size = new Size(72, 20);
+            label5.Size = new Size(221, 28);
             label5.TabIndex = 6;
-            label5.Text = "Số lượng:";
+            label5.Text = "Kem sầu riêng đẳng cấp";
             // 
             // Frm_SanPhamBanHang
             // 

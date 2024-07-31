@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            cbbTrangThaiTaiKhoan = new ComboBox();
+            cbbQuyen = new ComboBox();
             btn_CapNhatNhanVien = new Button();
             btn_ThemNhanVien = new Button();
             rd_Nu = new RadioButton();
@@ -48,13 +50,11 @@
             cbb_TrangThaiTimKiem = new ComboBox();
             cbb_QuyenTimKiem = new ComboBox();
             btn_TimNhanVien = new Button();
-            textBox1 = new TextBox();
+            txtSearchTaiKhoan = new TextBox();
             label9 = new Label();
             label8 = new Label();
             label7 = new Label();
             dtg_QuanLyNhanVien = new DataGridView();
-            cbbQuyen = new ComboBox();
-            cbbTrangThaiTaiKhoan = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ptb_TaiKhoan).BeginInit();
             panel2.SuspendLayout();
@@ -84,6 +84,24 @@
             panel1.Size = new Size(741, 974);
             panel1.TabIndex = 0;
             // 
+            // cbbTrangThaiTaiKhoan
+            // 
+            cbbTrangThaiTaiKhoan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbTrangThaiTaiKhoan.FormattingEnabled = true;
+            cbbTrangThaiTaiKhoan.Location = new Point(200, 792);
+            cbbTrangThaiTaiKhoan.Name = "cbbTrangThaiTaiKhoan";
+            cbbTrangThaiTaiKhoan.Size = new Size(497, 39);
+            cbbTrangThaiTaiKhoan.TabIndex = 19;
+            // 
+            // cbbQuyen
+            // 
+            cbbQuyen.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbQuyen.FormattingEnabled = true;
+            cbbQuyen.Location = new Point(200, 585);
+            cbbQuyen.Name = "cbbQuyen";
+            cbbQuyen.Size = new Size(497, 39);
+            cbbQuyen.TabIndex = 18;
+            // 
             // btn_CapNhatNhanVien
             // 
             btn_CapNhatNhanVien.BackColor = Color.FromArgb(255, 192, 192);
@@ -94,6 +112,7 @@
             btn_CapNhatNhanVien.TabIndex = 17;
             btn_CapNhatNhanVien.Text = "Cập nhật";
             btn_CapNhatNhanVien.UseVisualStyleBackColor = false;
+            btn_CapNhatNhanVien.Click += btn_CapNhatNhanVien_Click;
             // 
             // btn_ThemNhanVien
             // 
@@ -218,6 +237,7 @@
             // 
             // ptb_TaiKhoan
             // 
+            ptb_TaiKhoan.Image = PRL.Properties.Resources.avatar_3637425_1280;
             ptb_TaiKhoan.Location = new Point(187, 9);
             ptb_TaiKhoan.Name = "ptb_TaiKhoan";
             ptb_TaiKhoan.Size = new Size(371, 405);
@@ -231,7 +251,7 @@
             panel2.Controls.Add(cbb_TrangThaiTimKiem);
             panel2.Controls.Add(cbb_QuyenTimKiem);
             panel2.Controls.Add(btn_TimNhanVien);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(txtSearchTaiKhoan);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
@@ -279,14 +299,16 @@
             btn_TimNhanVien.TabIndex = 5;
             btn_TimNhanVien.Text = "Tìm";
             btn_TimNhanVien.UseVisualStyleBackColor = false;
+            btn_TimNhanVien.Click += btn_TimNhanVien_Click;
             // 
-            // textBox1
+            // txtSearchTaiKhoan
             // 
-            textBox1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(13, 238);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(300, 38);
-            textBox1.TabIndex = 4;
+            txtSearchTaiKhoan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearchTaiKhoan.Location = new Point(13, 238);
+            txtSearchTaiKhoan.Name = "txtSearchTaiKhoan";
+            txtSearchTaiKhoan.Size = new Size(300, 38);
+            txtSearchTaiKhoan.TabIndex = 4;
+            txtSearchTaiKhoan.TextChanged += txtSearchTaiKhoan_TextChanged;
             // 
             // label9
             // 
@@ -320,30 +342,15 @@
             // 
             // dtg_QuanLyNhanVien
             // 
+            dtg_QuanLyNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_QuanLyNhanVien.BackgroundColor = Color.White;
             dtg_QuanLyNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_QuanLyNhanVien.Location = new Point(3, 324);
             dtg_QuanLyNhanVien.Name = "dtg_QuanLyNhanVien";
             dtg_QuanLyNhanVien.RowHeadersWidth = 51;
             dtg_QuanLyNhanVien.Size = new Size(842, 647);
             dtg_QuanLyNhanVien.TabIndex = 0;
-            // 
-            // cbbQuyen
-            // 
-            cbbQuyen.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbQuyen.FormattingEnabled = true;
-            cbbQuyen.Location = new Point(200, 585);
-            cbbQuyen.Name = "cbbQuyen";
-            cbbQuyen.Size = new Size(497, 39);
-            cbbQuyen.TabIndex = 18;
-            // 
-            // cbbTrangThaiTaiKhoan
-            // 
-            cbbTrangThaiTaiKhoan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbTrangThaiTaiKhoan.FormattingEnabled = true;
-            cbbTrangThaiTaiKhoan.Location = new Point(200, 792);
-            cbbTrangThaiTaiKhoan.Name = "cbbTrangThaiTaiKhoan";
-            cbbTrangThaiTaiKhoan.Size = new Size(497, 39);
-            cbbTrangThaiTaiKhoan.TabIndex = 19;
+            dtg_QuanLyNhanVien.CellClick += dtg_QuanLyNhanVien_CellClick;
             // 
             // Frm_TaiKhoan
             // 
@@ -388,7 +395,7 @@
 		private ComboBox cbb_TrangThaiTimKiem;
 		private ComboBox cbb_QuyenTimKiem;
 		private Button btn_TimNhanVien;
-		private TextBox textBox1;
+		private TextBox txtSearchTaiKhoan;
 		private Label label11;
 		private Button btn_CapNhatNhanVien;
 		private Button btn_ThemNhanVien;

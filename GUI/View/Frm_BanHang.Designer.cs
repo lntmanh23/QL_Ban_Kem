@@ -140,6 +140,7 @@
             // dtg_TaoHoaDon
             // 
             dtg_TaoHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_TaoHoaDon.BackgroundColor = Color.White;
             dtg_TaoHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_TaoHoaDon.Location = new Point(6, 54);
             dtg_TaoHoaDon.Name = "dtg_TaoHoaDon";
@@ -328,6 +329,7 @@
             // dtg_HoaDonCho
             // 
             dtg_HoaDonCho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_HoaDonCho.BackgroundColor = Color.White;
             dtg_HoaDonCho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_HoaDonCho.Location = new Point(9, 34);
             dtg_HoaDonCho.Name = "dtg_HoaDonCho";

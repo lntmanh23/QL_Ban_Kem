@@ -107,6 +107,7 @@ namespace GUI.View
             tlp_SanPham.ColumnCount = 3;
             tlp_SanPham.RowCount = 2;
             Panel p = new Panel();
+            p.BackColor = Color.FromArgb(255, 228, 181)  ;
             p.Name = sp.Id.ToString();
             p.Size = new Size(271, 303);
             PictureBox ptb = new PictureBox();
@@ -122,8 +123,9 @@ namespace GUI.View
             Tensp.ForeColor = Color.Red;
             Tensp.Font = new Font("Arial", 12, FontStyle.Bold);
             Tensp.Text = sp.TenSanPham.ToString();
-            Tensp.Location = new Point(100, 206);
+            Tensp.Location = new Point(12, 204);
             Tensp.Name = "TenSp";
+            Tensp.Size = new Size(221, 28);
             giavalue.Location = new Point(12, 270);
             giavalue.Text = sp.GiaSanPham + "";
             giavalue.Name = "giaSp";

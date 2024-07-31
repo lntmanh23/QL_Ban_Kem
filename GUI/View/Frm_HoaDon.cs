@@ -39,6 +39,7 @@ namespace GUI.View
                 string trangthai = item.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
                 dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, item.GiaDuocGiam, item.Thue, trangthai);
             }
+
         }
         public void LoadHoaDonChiTiet()
         {
@@ -199,16 +200,6 @@ namespace GUI.View
         }
         public void LoadTrangThaiHD()
         {
-
-            foreach (var x in hoaDonSevices.GetAllHoaDon())
-            {
-                string trangthai = x.TrangThai == 0 ? "Đã thanh toán"  : "Chưa thanh toán" ;
-                if (!cbbTrangThaiHd.Items.Contains(trangthai))
-                {
-                    cbbTrangThaiHd.Items.Add(trangthai);
-                }
-            }
-            cbbTrangThaiHd.Text = "Tất cả";
         }
         public void LocHoaDon()
         {
@@ -242,6 +233,11 @@ namespace GUI.View
         private void btnLocHoaDon_Click(object sender, EventArgs e)
         {
             LocHoaDon();
+        }
+        
+        private void cbbTrangThaiHd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
