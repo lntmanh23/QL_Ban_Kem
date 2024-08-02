@@ -80,26 +80,28 @@ namespace BUS.Services
             }
             return sum; 
         }
-        public List<HoaDonVm> GetHD_HDCT()
+        public List<HoaDonVm> GetHD_HDCT(int IdHD)
         {
-            var hd =( from hoadon in _context.HoaDons
-                     join HDCT in _context.HoaDonChiTiets on hoadon.Id equals HDCT.IdHoaDon
-                     join sp in _context.sanPhams on HDCT.IdSanPham equals sp.Id
-                     join tk in _context.TaiKhoans on hoadon.IdTaiKhoan equals tk.Id
-                     join lsp in _context.loaiSanPhams on sp.IdLoaiSp equals lsp.Id
-                      select new HoaDonVm
-                     {
-                         IdHd = hoadon.Id,
-                         IdSp = sp.Id,
-                         TenSp = sp.TenSanPham,
-                         Gia=sp.GiaSanPham,
-                         Thue = Convert.ToInt32(hoadon.Thue),
-                         SoLuong = sp.SoLuong,   
-                         ThanhTien = Convert.ToString(sp.SoLuong * sp.GiaSanPham - int.Parse(hoadon.Thue)),
-                         MoTa = lsp.MoTa,
-                     }).ToList();
-            return hd;
+            var hdct = hoaDonChiTietRepos.GetAllByHD(IdHD);
+            var sp = sanPhamRepos.GetAllSanPham();
+            var hd = hoaDonRepos.GetAllHoaDon();
+            var hdVm = from a in hdct
+                       join b in sp on a.IdSanPham equals b.Id
+                       join c in hd on a.IdHoaDon equals c.Id
+                       
+                       select new HoaDonVm
+                       {
+                           Id = a.Id,
+                           IdSp = b.Id,
+                           IdHd = a.IdHoaDon,
+                           TenSp = b.TenSanPham,
+                           Gia = b.GiaSanPham,
+                           Thue = Convert.ToInt32(c.Thue),
+                           SoLuongMua = a.SoLuongMua,
+                           ThanhTien = a.ThanhTien,
+                           MoTa = ""
+                       };
+            return hdVm.ToList();
         }
-        
     }
 }

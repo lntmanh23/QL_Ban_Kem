@@ -39,25 +39,7 @@ namespace GUI.View
             this.idTk = idTk;
             InitializeComponent();
         }
-        public void LoadHoaDon()
-        {
-            dtg_TaoHoaDon.ColumnCount = 8;
-            dtg_TaoHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
-            dtg_TaoHoaDon.Columns[1].HeaderText = "Mã sản phẩm";
-            dtg_TaoHoaDon.Columns[2].HeaderText = "Tên sản phẩm";
-            dtg_TaoHoaDon.Columns[3].HeaderText = "Số lượng";
-            dtg_TaoHoaDon.Columns[4].HeaderText = "Giá";
-            dtg_TaoHoaDon.Columns[5].HeaderText = "Thuế";
-            dtg_TaoHoaDon.Columns[6].HeaderText = "Thành tiền";
-            dtg_TaoHoaDon.Columns[7].HeaderText = "Mô tả";
-
-            var hd = hoaDonChiTietServices.GetHD_HDCT();
-            foreach (var data in hd)
-            {
-                dtg_TaoHoaDon.Rows.Add(data.IdHd, data.IdSp, data.TenSp, data.SoLuong, data.Gia, data.Thue, data.ThanhTien, data.MoTa);
-            }
-
-        }
+        
         private void Frm_BanHang_Load(object sender, EventArgs e)
         {
             hoaDonSevices = new HoaDonSevices();
@@ -155,7 +137,7 @@ namespace GUI.View
             TextBox t = p1.Controls["tblSlMua"] as TextBox;
             Label gia = p1.Controls["giaSp"] as Label;
             int Giaban = Convert.ToInt32(gia.Text);
-            int soLuongMua = Convert.ToInt32(t.Text);
+            string soLuongMua = t.Text;
             Label ten = p1.Controls["TenSp"] as Label;
             string tensp = ten.Text;
             int soluongton = sp.SoLuong;         
@@ -182,19 +164,20 @@ namespace GUI.View
         public void LoadHDCT()
         {
             HoaDonChiTietRepos repos = new HoaDonChiTietRepos();
-            var allhdct = repos.GetAllByHD(currentId);
+            var allhdct = hoaDonChiTietServices.GetHD_HDCT(currentId);
             dtg_HoaDonCho.Rows.Clear();
             dtg_HoaDonCho.ColumnCount = 6;
             dtg_HoaDonCho.Columns[0].HeaderText = "Mã hóa đơn";
             dtg_HoaDonCho.Columns[1].HeaderText = "Mã sản phẩm";
-            dtg_HoaDonCho.Columns[2].HeaderText = "Giá bán";
-            dtg_HoaDonCho.Columns[3].HeaderText = "Số lượng";
-            dtg_HoaDonCho.Columns[4].HeaderText = "Thành tiền";
-            dtg_HoaDonCho.Columns[5].HeaderText = "Trạng thái";
+            dtg_HoaDonCho.Columns[2].HeaderText = "Tên sản phẩm";
+            dtg_HoaDonCho.Columns[3].HeaderText = "Giá bán";
+            dtg_HoaDonCho.Columns[4].HeaderText = "Số lượng";
+            dtg_HoaDonCho.Columns[5].HeaderText = "Thành tiền";
+
             foreach (var data in allhdct)
             {
                 int thanhtien = data.SoLuongMua * Convert.ToInt32(data.Gia);
-                dtg_HoaDonCho.Rows.Add(data.IdHoaDon, data.IdSanPham, data.Gia, data.SoLuongMua, thanhtien, data.TrangThai);
+                dtg_HoaDonCho.Rows.Add(data.IdHd, data.IdSp,data.TenSp, data.Gia, data.SoLuongMua, thanhtien);
             }
         }
         public void LoadHD()
