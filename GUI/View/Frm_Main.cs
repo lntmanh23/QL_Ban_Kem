@@ -18,9 +18,8 @@ namespace GUI.View
         AppDbContext _context = new AppDbContext();
         TaiKhoanServices TaiKhoanServices = new TaiKhoanServices();
         int idTk;
-
         public Frm_Main(int idTk)
-        {
+        {  
             this.idTk = idTk;
             InitializeComponent();
 
@@ -41,11 +40,6 @@ namespace GUI.View
             form.BringToFront();
             form.Show();
         }
-
-
-
-
-
         private void btn_Trangchu_Click(object sender, EventArgs e)
         {
             if (activeForm != null)
@@ -86,7 +80,7 @@ namespace GUI.View
 
         private void Frm_Main_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

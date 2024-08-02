@@ -37,7 +37,7 @@ namespace DAL.Repositories
             return _context.TaiKhoans.ToList(); // Lấy ra toàn bộ danh sách sản phẩm
 
         }
-        public TaiKhoan GetById(int id)
+        public TaiKhoan GetTkById(int id)
         {
             return _context.TaiKhoans.Find(id);
         }

@@ -88,13 +88,8 @@ namespace GUI.View
             LoadTaiKhoan();
             ClearForm();
         }
-        public void LoadTrangThai()
-        {
-
-        }
         private void Frm_TaiKhoan_Load(object sender, EventArgs e)
         {
-            LoadTrangThai();
             LoadTaiKhoan();
         }
         public void ClearForm()
@@ -117,7 +112,6 @@ namespace GUI.View
             cbbTrangThaiTaiKhoan.Text = row.Cells[6].Value.ToString();
 
         }
-
         private void btn_CapNhatNhanVien_Click(object sender, EventArgs e)
         {
             if (selectedId == -1)

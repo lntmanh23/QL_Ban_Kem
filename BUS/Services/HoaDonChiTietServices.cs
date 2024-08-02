@@ -70,6 +70,16 @@ namespace BUS.Services
                 }
             }
         }
+        public long TongTien(int idHD)
+        {
+            List<HoaDonChiTiet> hdct = hoaDonChiTietRepos.GetAllByHD(idHD);
+            long sum = 0;
+            foreach(var item in hdct)
+            {
+                sum += long.Parse(item.Gia) * (long)item.SoLuongMua + long.Parse(item.ThanhTien);
+            }
+            return sum; 
+        }
         public List<HoaDonVm> GetHD_HDCT()
         {
             var hd =( from hoadon in _context.HoaDons

@@ -20,7 +20,7 @@ namespace DAL.Models
         public string Gia { get; set; }
         public int SoLuongMua {  get; set; }
         public string ThanhTien { get; set; }
-
+        public int? TrangThai { get; set; }
         public string GhiChu {  get; set; }
         public HoaDon HoaDon { get; set; }
         public SanPham SanPham { get; set; }

@@ -112,6 +112,7 @@
             // cbbTrangThaiHd
             // 
             cbbTrangThaiHd.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbTrangThaiHd.FormatString = "E2";
             cbbTrangThaiHd.FormattingEnabled = true;
             cbbTrangThaiHd.Location = new Point(1191, 67);
             cbbTrangThaiHd.Name = "cbbTrangThaiHd";

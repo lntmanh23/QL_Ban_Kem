@@ -52,6 +52,8 @@
             btnThucDonMain = new Button();
             pnBody = new Panel();
             label1 = new Label();
+            label2 = new Label();
+            lbTenTaiKhoan = new Label();
             panel1.SuspendLayout();
             panel15.SuspendLayout();
             panel14.SuspendLayout();
@@ -326,6 +328,8 @@
             // 
             pnBody.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnBody.BackColor = Color.MistyRose;
+            pnBody.Controls.Add(lbTenTaiKhoan);
+            pnBody.Controls.Add(label2);
             pnBody.Controls.Add(label1);
             pnBody.Controls.Add(panel6);
             pnBody.Location = new Point(269, 3);
@@ -342,6 +346,26 @@
             label1.Size = new Size(913, 95);
             label1.TabIndex = 0;
             label1.Text = "Delicious Ice Cream and Tea";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(12, 6);
+            label2.Name = "label2";
+            label2.Size = new Size(166, 46);
+            label2.TabIndex = 3;
+            label2.Text = "Xin chào:";
+            // 
+            // lbTenTaiKhoan
+            // 
+            lbTenTaiKhoan.AutoSize = true;
+            lbTenTaiKhoan.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTenTaiKhoan.Location = new Point(184, 6);
+            lbTenTaiKhoan.Name = "lbTenTaiKhoan";
+            lbTenTaiKhoan.Size = new Size(47, 46);
+            lbTenTaiKhoan.TabIndex = 4;
+            lbTenTaiKhoan.Text = "...";
             // 
             // Frm_Main
             // 
@@ -396,5 +420,7 @@
 		private Panel panel7;
 		private Panel panel15;
 		private Button btn_TaiKhoanMain;
-	}
+        private Label lbTenTaiKhoan;
+        private Label label2;
+    }
 }

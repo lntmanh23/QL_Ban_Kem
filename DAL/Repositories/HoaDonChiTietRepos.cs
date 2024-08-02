@@ -31,6 +31,7 @@ namespace DAL.Repositories
         {
             return _context.HoaDonChiTiets.Find(id);
         }
+
         public bool CreateHDCT(int soluong, int maSP, int MaHD)
         {
             SanPham sp = _context.sanPhams.Find(maSP);
@@ -40,9 +41,10 @@ namespace DAL.Repositories
                 IdSanPham = maSP,
                 Gia = Convert.ToString(sp.GiaSanPham),
                 SoLuongMua = soluong,
-                ThanhTien = Convert.ToString(soluong* sp.GiaSanPham),
+                ThanhTien = Convert.ToString(soluong * sp.GiaSanPham),
                 NgayLapHoaDon = DateTime.Now,
-                GhiChu = ""
+                GhiChu = "",
+                TrangThai = 1
             };
             try
             {
