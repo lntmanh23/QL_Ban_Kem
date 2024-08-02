@@ -65,10 +65,6 @@ namespace GUI.View
             {
                 //MessageBox.Show("chưa đc khoeri tạo");
             }
-
-
-
-
         }
 
         private void FrmMain_FormClosed(object? sender, FormClosedEventArgs e)

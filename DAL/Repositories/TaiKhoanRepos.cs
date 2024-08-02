@@ -10,9 +10,10 @@ namespace DAL.Repositories
     public class TaiKhoanRepos
     {
         AppDbContext _context = new AppDbContext();
-
+        
         public TaiKhoanRepos()
         {
+           
             _context = new AppDbContext();
         }
         public string CheckLogin(string tenTaiKhoan,string matKhau)
@@ -36,10 +37,11 @@ namespace DAL.Repositories
             return _context.TaiKhoans.ToList(); // Lấy ra toàn bộ danh sách sản phẩm
 
         }
-        public TaiKhoan GetById(int id)
+        public TaiKhoan GetTkById(int id)
         {
             return _context.TaiKhoans.Find(id);
         }
+        
         public bool CreateTaiKhoan(TaiKhoan tk)
         {
             try
@@ -51,6 +53,25 @@ namespace DAL.Repositories
             catch (Exception)
             {
                 return false;
+            }
+        }
+        public bool UpdateTaiKhoan(int id, TaiKhoan tk)
+        {
+            try
+            {
+                var update = _context.TaiKhoans.Find(id);
+                update.MatKhau = tk.MatKhau;
+                update.SDT = tk.SDT;
+                update.GioiTinh = tk.GioiTinh;
+                update.TrangThai = tk.TrangThai;
+                update.Quyen = tk.Quyen;
+                _context.TaiKhoans.Update(update);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false ;
             }
         }
     }

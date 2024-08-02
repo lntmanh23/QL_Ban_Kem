@@ -18,6 +18,7 @@ namespace DAL.Models
         public string? GiaDuocGiam { get; set; }
         public int? TrangThai { get; set; }
         public string? Thue { get; set; }
+        public string TongTienHD { get; set; }
         [ForeignKey(nameof(GiamGia))]
         public int? giamGiaId { get; set; }
         public virtual List<HoaDonChiTiet> HoaDonChiTiets { get; set; }

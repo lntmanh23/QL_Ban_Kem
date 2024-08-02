@@ -71,12 +71,16 @@ namespace DAL.Repositories
                 return false;
             }
         }
-        public bool UpdateHD(int id, int trangthai)
+        public bool UpdateHD(int id, int trangthai, long? tongTienHD)
         {
             try
             {
                 var hd = _context.HoaDons.Find(id);
                 hd.TrangThai = trangthai;
+                if(tongTienHD != null)
+                {
+                    hd.TongTienHD = Convert.ToString(tongTienHD);
+                }
                 _context.SaveChanges();
                 return true;
             }

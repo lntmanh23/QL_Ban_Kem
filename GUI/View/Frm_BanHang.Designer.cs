@@ -39,7 +39,6 @@
             btn_SuaHoaDon = new Button();
             btn_TaoHoaDon = new Button();
             panel4 = new Panel();
-            btn_TachHoaDon = new Button();
             btn_ThanhToan = new Button();
             btn_HuyHD = new Button();
             txtTienThua = new TextBox();
@@ -140,6 +139,7 @@
             // dtg_TaoHoaDon
             // 
             dtg_TaoHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_TaoHoaDon.BackgroundColor = Color.White;
             dtg_TaoHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_TaoHoaDon.Location = new Point(6, 54);
             dtg_TaoHoaDon.Name = "dtg_TaoHoaDon";
@@ -173,7 +173,6 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(btn_TachHoaDon);
             panel4.Controls.Add(btn_ThanhToan);
             panel4.Controls.Add(btn_HuyHD);
             panel4.Controls.Add(txtTienThua);
@@ -191,33 +190,23 @@
             panel4.Size = new Size(782, 487);
             panel4.TabIndex = 4;
             // 
-            // btn_TachHoaDon
-            // 
-            btn_TachHoaDon.BackColor = Color.FromArgb(255, 192, 192);
-            btn_TachHoaDon.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_TachHoaDon.Location = new Point(285, 337);
-            btn_TachHoaDon.Name = "btn_TachHoaDon";
-            btn_TachHoaDon.Size = new Size(220, 122);
-            btn_TachHoaDon.TabIndex = 14;
-            btn_TachHoaDon.Text = "Tách hóa đơn";
-            btn_TachHoaDon.UseVisualStyleBackColor = false;
-            // 
             // btn_ThanhToan
             // 
             btn_ThanhToan.BackColor = Color.FromArgb(255, 192, 192);
             btn_ThanhToan.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_ThanhToan.Location = new Point(546, 337);
+            btn_ThanhToan.Location = new Point(455, 337);
             btn_ThanhToan.Name = "btn_ThanhToan";
             btn_ThanhToan.Size = new Size(220, 122);
             btn_ThanhToan.TabIndex = 13;
             btn_ThanhToan.Text = "Thanh Toán";
             btn_ThanhToan.UseVisualStyleBackColor = false;
+            btn_ThanhToan.Click += btn_ThanhToan_Click;
             // 
             // btn_HuyHD
             // 
             btn_HuyHD.BackColor = Color.FromArgb(255, 192, 192);
             btn_HuyHD.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_HuyHD.Location = new Point(18, 337);
+            btn_HuyHD.Location = new Point(128, 337);
             btn_HuyHD.Name = "btn_HuyHD";
             btn_HuyHD.Size = new Size(220, 122);
             btn_HuyHD.TabIndex = 12;
@@ -260,6 +249,7 @@
             // 
             // txt_TongTienSP
             // 
+            txt_TongTienSP.Enabled = false;
             txt_TongTienSP.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txt_TongTienSP.Location = new Point(244, 9);
             txt_TongTienSP.Name = "txt_TongTienSP";
@@ -328,6 +318,7 @@
             // dtg_HoaDonCho
             // 
             dtg_HoaDonCho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_HoaDonCho.BackgroundColor = Color.White;
             dtg_HoaDonCho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_HoaDonCho.Location = new Point(9, 34);
             dtg_HoaDonCho.Name = "dtg_HoaDonCho";
@@ -449,7 +440,6 @@
 		private ComboBox cbb_LoaiThanhToan;
 		private Button btn_ThanhToan;
 		private Button btn_HuyHD;
-		private Button btn_TachHoaDon;
         private Label lbback;
         private Label lb_page;
         private Label lbnext;

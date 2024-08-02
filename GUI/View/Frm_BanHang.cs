@@ -39,25 +39,7 @@ namespace GUI.View
             this.idTk = idTk;
             InitializeComponent();
         }
-        public void LoadHoaDon()
-        {
-            dtg_TaoHoaDon.ColumnCount = 8;
-            dtg_TaoHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
-            dtg_TaoHoaDon.Columns[1].HeaderText = "Mã sản phẩm";
-            dtg_TaoHoaDon.Columns[2].HeaderText = "Tên sản phẩm";
-            dtg_TaoHoaDon.Columns[3].HeaderText = "Số lượng";
-            dtg_TaoHoaDon.Columns[4].HeaderText = "Giá";
-            dtg_TaoHoaDon.Columns[5].HeaderText = "Thuế";
-            dtg_TaoHoaDon.Columns[6].HeaderText = "Thành tiền";
-            dtg_TaoHoaDon.Columns[7].HeaderText = "Mô tả";
-
-            var hd = hoaDonChiTietServices.GetHD_HDCT();
-            foreach (var data in hd)
-            {
-                dtg_TaoHoaDon.Rows.Add(data.IdHd, data.IdSp, data.TenSp, data.SoLuong, data.Gia, data.Thue, data.ThanhTien, data.MoTa);
-            }
-
-        }
+        
         private void Frm_BanHang_Load(object sender, EventArgs e)
         {
             hoaDonSevices = new HoaDonSevices();
@@ -68,7 +50,7 @@ namespace GUI.View
         public void LoadToSpPanel(int page)
         {
             tlp_SanPham.Controls.Clear();
-            
+
             int numberOfPage = (int)Math.Ceiling((double)_lstSanPhams.Count / 6);
             if (page < 1 || page > numberOfPage) return;
             if (page * 6 - 6 < _lstSanPhams.Count)
@@ -107,6 +89,7 @@ namespace GUI.View
             tlp_SanPham.ColumnCount = 3;
             tlp_SanPham.RowCount = 2;
             Panel p = new Panel();
+            p.BackColor = Color.FromArgb(255, 228, 181);
             p.Name = sp.Id.ToString();
             p.Size = new Size(271, 303);
             PictureBox ptb = new PictureBox();
@@ -122,8 +105,9 @@ namespace GUI.View
             Tensp.ForeColor = Color.Red;
             Tensp.Font = new Font("Arial", 12, FontStyle.Bold);
             Tensp.Text = sp.TenSanPham.ToString();
-            Tensp.Location = new Point(100, 206);
+            Tensp.Location = new Point(12, 204);
             Tensp.Name = "TenSp";
+            Tensp.Size = new Size(221, 28);
             giavalue.Location = new Point(12, 270);
             giavalue.Text = sp.GiaSanPham + "";
             giavalue.Name = "giaSp";
@@ -156,8 +140,10 @@ namespace GUI.View
             string soLuongMua = t.Text;
             Label ten = p1.Controls["TenSp"] as Label;
             string tensp = ten.Text;
+            int soluongton = sp.SoLuong;         
             if (currentId == -1) MessageBox.Show("Bạn chưa chọn hóa đơn mua", "Thông báo");
-            else if (t.Text == "") MessageBox.Show("Bạn chưa chọn số lượng mua", "Thông báo");          
+            else if (t.Text == "") MessageBox.Show("Bạn chưa chọn số lượng mua", "Thông báo");
+            //else if(soLuongMua > soluongton) MessageBox.Show($"Bạn không được mua quá {soluongton} sản phẩm", "Thông báo");
             else
             {
                 int IdHD = currentId;
@@ -165,51 +151,58 @@ namespace GUI.View
                 int SoLuong = Convert.ToInt32(soLuongMua);
                 int Gia = Giaban;
                 int TrangThai = 1;
-                hoaDonChiTietServices.UpdateCongDon( IdSp, IdHD, SoLuong);
-                LoadHDCT();
+                hoaDonChiTietServices.UpdateCongDon(IdSp, IdHD, SoLuong);
                 MessageBox.Show("Bạn vừa chọn mua " + ten.Text + ". Với số lượng là " + t.Text);
+                long TotalMoney = hoaDonChiTietServices.TongTien(currentId);
+                txt_TongTienSP.Text = TotalMoney.ToString();
+                hoaDonSevices.UpdateHD(currentId, 1, TotalMoney);
+                LoadHD();
+                LoadHDCT();    
             }
-            
+            t.Text = "";
         }
         public void LoadHDCT()
         {
             HoaDonChiTietRepos repos = new HoaDonChiTietRepos();
-            var allhdct = repos.GetAllByHD(currentId);
+            var allhdct = hoaDonChiTietServices.GetHD_HDCT(currentId);
             dtg_HoaDonCho.Rows.Clear();
-            
-            dtg_HoaDonCho.ColumnCount = 5;
+            dtg_HoaDonCho.ColumnCount = 6;
             dtg_HoaDonCho.Columns[0].HeaderText = "Mã hóa đơn";
             dtg_HoaDonCho.Columns[1].HeaderText = "Mã sản phẩm";
-            dtg_HoaDonCho.Columns[2].HeaderText = "Giá bán";
-            dtg_HoaDonCho.Columns[3].HeaderText = "Số lượng";
-            dtg_HoaDonCho.Columns[4].HeaderText = "Thành tiền";
+            dtg_HoaDonCho.Columns[2].HeaderText = "Tên sản phẩm";
+            dtg_HoaDonCho.Columns[3].HeaderText = "Giá bán";
+            dtg_HoaDonCho.Columns[4].HeaderText = "Số lượng";
+            dtg_HoaDonCho.Columns[5].HeaderText = "Thành tiền";
+
             foreach (var data in allhdct)
             {
                 int thanhtien = data.SoLuongMua * Convert.ToInt32(data.Gia);
-                dtg_HoaDonCho.Rows.Add(data.IdHoaDon, data.IdSanPham, data.Gia, data.SoLuongMua, thanhtien);
+                dtg_HoaDonCho.Rows.Add(data.IdHd, data.IdSp,data.TenSp, data.Gia, data.SoLuongMua, thanhtien);
             }
         }
         public void LoadHD()
         {
-            var allhd = hoaDonSevices.GetAllHoaDon();
+            var allhd = hoaDonSevices.GetAllHdChuaThanhToan();
             dtg_TaoHoaDon.Rows.Clear();
-            dtg_TaoHoaDon.ColumnCount = 6;
+            dtg_TaoHoaDon.ColumnCount = 7;
             dtg_TaoHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
             dtg_TaoHoaDon.Columns[1].HeaderText = "Mã tài khoản";
             dtg_TaoHoaDon.Columns[2].HeaderText = "Ngày tạo";
             dtg_TaoHoaDon.Columns[3].HeaderText = "Giá được giảm";
             dtg_TaoHoaDon.Columns[4].HeaderText = "Thuế";
-            dtg_TaoHoaDon.Columns[5].HeaderText = "Trạng thái";
+            dtg_TaoHoaDon.Columns[5].HeaderText = "Tổng tiền hóa đơn";
+            dtg_TaoHoaDon.Columns[6].HeaderText = "Trạng thái";
             foreach (var hoaDon in allhd)
             {
-                string trangthai = hoaDon.TrangThai == 0 ? "Chưa thanh toán" : "Đã thanh toán";
-                dtg_TaoHoaDon.Rows.Add(hoaDon.Id, hoaDon.IdTaiKhoan, hoaDon.NgayTao, hoaDon.GiaDuocGiam, hoaDon.Thue, hoaDon.TrangThai);
+                string trangthai = hoaDon.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
+                dtg_TaoHoaDon.Rows.Add(hoaDon.Id, hoaDon.IdTaiKhoan, hoaDon.NgayTao, hoaDon.GiaDuocGiam, hoaDon.Thue, hoaDon.TongTienHD, trangthai);
             }
         }
         private void dtg_TaoHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dtg_TaoHoaDon.Rows[e.RowIndex];
             currentId = (int)row.Cells[0].Value;
+            LoadHDCT();
             //MessageBox.Show("Bạn vừa chọn hóa đơn có mã là" + currentId.ToString());
         }
         private void btn_TaoHoaDon_Click(object sender, EventArgs e)
@@ -228,7 +221,7 @@ namespace GUI.View
 
         private void lbback_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(lb_page.Text) >1)
+            if (Convert.ToInt32(lb_page.Text) > 1)
             {
                 lb_page.Text = Convert.ToInt32(lb_page.Text) - 1 + "";
                 LoadToSpPanel(Convert.ToInt32(lb_page.Text));
@@ -237,12 +230,25 @@ namespace GUI.View
 
         private void lbnext_Click(object sender, EventArgs e)
         {
-            if(Convert.ToInt32(lb_page.Text) < (int)Math.Ceiling((double)_lstSanPhams.Count / 6))
+            if (Convert.ToInt32(lb_page.Text) < (int)Math.Ceiling((double)_lstSanPhams.Count / 6))
             {
                 lb_page.Text = Convert.ToInt32(lb_page.Text) + 1 + "";
                 LoadToSpPanel(Convert.ToInt32(lb_page.Text));
             }
-            
+        }
+        private void btn_ThanhToan_Click(object sender, EventArgs e)
+        {
+            if(currentId !=null)
+            {
+                hoaDonSevices.UpdateHD(currentId, 0, null);
+                MessageBox.Show("Thanh toán thành công", "Thanh toán");
+                dtg_HoaDonCho.Rows.Clear();
+                LoadHD();
+            }
+            else if(currentId == null)
+            {
+                MessageBox.Show("Bạn chưa chọn hóa đơn thanh toán", "Thông báo");
+            }
         }
     }
 }

@@ -11,20 +11,17 @@ namespace BUS.Services
     public class HoaDonSevices
     {
         HoaDonRepos hoaDonRepos ;
-        
-        
-
         public HoaDonSevices()
-        {
-           
+        {        
             hoaDonRepos = new HoaDonRepos();
-            
         }
         public List<HoaDon> GetAllHoaDon()
+        {           
+            return hoaDonRepos.GetAllHoaDon();        
+        }
+        public List<HoaDon> GetAllHdChuaThanhToan()
         {
-            
-            return hoaDonRepos.GetAllHoaDon();
-            
+            return hoaDonRepos.GetAllHoaDon().Where(p=>p.TrangThai == 1).ToList();
         }
         public string CreateHD(int idTk,int idGg)
         {
@@ -36,6 +33,7 @@ namespace BUS.Services
                 GiaDuocGiam = "0",
                 Thue = "0",
                 TrangThai = 1,
+                TongTienHD = "0",
                 giamGiaId = idGg,
             };
 
@@ -54,9 +52,9 @@ namespace BUS.Services
             }
             else return "Xóa thất bại";
         }
-        public string UpdateHD(int id,int trangthai)
+        public string UpdateHD(int id,int trangthai,long? tongTienHD)
         {
-            if (hoaDonRepos.UpdateHD(id,trangthai))
+            if (hoaDonRepos.UpdateHD(id,trangthai,tongTienHD))
             {
                 return "Sửa thành công";
             }
