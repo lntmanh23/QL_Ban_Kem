@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240718104445_update_SP")]
-    partial class update_SP
+    [Migration("20240803114714_update_database_lai")]
+    partial class update_database_lai
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,19 +70,23 @@ namespace DAL.Migrations
                     b.Property<string>("GiaDuocGiam")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdTaiKhoan")
+                    b.Property<int?>("IdTaiKhoan")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("NgayTao")
+                    b.Property<DateTime?>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Thue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrangThai")
+                    b.Property<string>("TongTienHD")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TrangThai")
                         .HasColumnType("int");
 
-                    b.Property<int>("giamGiaId")
+                    b.Property<int?>("giamGiaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -119,9 +123,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("NgayLapHoaDon")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("SoLuongMua")
+                        .HasColumnType("int");
+
                     b.Property<string>("ThanhTien")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -165,6 +175,10 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AnhSanPham")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GiaSanPham")
                         .HasColumnType("int");
@@ -224,16 +238,12 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.HoaDon", b =>
                 {
                     b.HasOne("DAL.Models.TaiKhoan", "TaiKhoan")
-                        .WithMany()
-                        .HasForeignKey("IdTaiKhoan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("HoaDons")
+                        .HasForeignKey("IdTaiKhoan");
 
                     b.HasOne("DAL.Models.GiamGia", "giamGia")
                         .WithMany("HoaDons")
-                        .HasForeignKey("giamGiaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("giamGiaId");
 
                     b.Navigation("TaiKhoan");
 
@@ -285,6 +295,11 @@ namespace DAL.Migrations
                     b.Navigation("HoaDonChiTiets");
 
                     b.Navigation("LoaiSanPhams");
+                });
+
+            modelBuilder.Entity("DAL.Models.TaiKhoan", b =>
+                {
+                    b.Navigation("HoaDons");
                 });
 #pragma warning restore 612, 618
         }

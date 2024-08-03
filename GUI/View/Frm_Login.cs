@@ -1,5 +1,6 @@
 ﻿using BUS.Services;
 using DAL.Models;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,7 @@ namespace GUI.View
         TaiKhoanServices TaiKhoanServices;
         public Frm_Login()
         {
-            TaiKhoanServices = new TaiKhoanServices();
+          
             _context = new AppDbContext();
             InitializeComponent();
             registerEvent();
@@ -38,23 +39,20 @@ namespace GUI.View
 
         private void btn_Login_Click(object sender, EventArgs e)
         {
+            TaiKhoanServices = new TaiKhoanServices();
             if (txtUser != null && txtPassWord != null)
             {
                 string tenTaiKhoan = txtUser.Text;
                 string matKhau = txtPassWord.Text;
-                if (TaiKhoanServices.Login(tenTaiKhoan, matKhau) == "0")
+                string thongTinTk = TaiKhoanServices.Login(tenTaiKhoan, matKhau);
+                if (string.IsNullOrEmpty(thongTinTk))
                 {
                     MessageBox.Show("Đăng nhập thất bại", "Thông báo");
-                }
-                else if (TaiKhoanServices.Login(tenTaiKhoan, matKhau) == "1")
-                {
-                    MessageBox.Show("Đăng nhập thất bại", "Trùng tài khoản");
-                }
+                }     
                 else
                 {
                     int idTk = int.Parse(TaiKhoanServices.Login(tenTaiKhoan, matKhau));
-                    Frm_Main frmMain = new Frm_Main(idTk);
-                    
+                    Frm_Main frmMain = new Frm_Main(idTk,thongTinTk);              
                     frmMain.ShowDialog();
                     this.Hide();
                     frmMain.FormClosed += FrmMain_FormClosed;

@@ -18,9 +18,11 @@ namespace GUI.View
         AppDbContext _context = new AppDbContext();
         TaiKhoanServices TaiKhoanServices = new TaiKhoanServices();
         int idTk;
-        public Frm_Main(int idTk)
+        string thongTinTk;
+        public Frm_Main(int idTk,string thongTinTK)
         {  
             this.idTk = idTk;
+            this.thongTinTk = thongTinTK;
             InitializeComponent();
 
         }
@@ -80,7 +82,21 @@ namespace GUI.View
 
         private void Frm_Main_Load(object sender, EventArgs e)
         {
-            
+            lbTenTaiKhoan.Text = TaiKhoanServices.GetAllTaiKhoan().Where(p => p.Id == idTk).Select(p => p.TenTaiKhoan).FirstOrDefault();
+            lbquyen.Text = TaiKhoanServices.GetAllTaiKhoan().Where(p => p.Id == idTk).Select(p => Convert.ToString(p.Quyen)).FirstOrDefault();
+            if(lbquyen.Text != "0")
+            {
+                lbquyen.Visible = false;
+                btn_DoanhThuMain.Visible = false;
+                btn_TaiKhoanMain.Visible = false;
+                btn_ThucDonMain.Visible = false;
+                btn_HoaDonMain.Visible = false;
+                btn_KhuyenMaiMain.Visible = false;
+            }
+            else
+            {
+                lbquyen.Visible = false;
+            }
         }
     }
 }

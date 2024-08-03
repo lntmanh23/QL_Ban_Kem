@@ -342,6 +342,8 @@
             // 
             // dtg_QuanLySP
             // 
+            dtg_QuanLySP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtg_QuanLySP.BackgroundColor = Color.White;
             dtg_QuanLySP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtg_QuanLySP.Location = new Point(3, 324);
             dtg_QuanLySP.Name = "dtg_QuanLySP";
