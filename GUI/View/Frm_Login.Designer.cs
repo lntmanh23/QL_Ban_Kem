@@ -73,7 +73,7 @@
             checkBox1.Location = new Point(71, 275);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(177, 27);
-            checkBox1.TabIndex = 10;
+            checkBox1.TabIndex = 3;
             checkBox1.Text = "Hiển thị mật khẩu";
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
@@ -89,7 +89,7 @@
             txtPassWord.PasswordChar = '*';
             txtPassWord.PlaceholderText = "Nhập mật khẩu";
             txtPassWord.Size = new Size(180, 24);
-            txtPassWord.TabIndex = 9;
+            txtPassWord.TabIndex = 2;
             // 
             // txtUser
             // 
@@ -101,7 +101,7 @@
             txtUser.Name = "txtUser";
             txtUser.PlaceholderText = "Nhập tài khoản";
             txtUser.Size = new Size(180, 24);
-            txtUser.TabIndex = 8;
+            txtUser.TabIndex = 1;
             // 
             // btn_Login
             // 

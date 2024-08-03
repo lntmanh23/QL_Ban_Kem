@@ -278,6 +278,8 @@
             // 
             // dtgSanPhamKm
             // 
+            dtgSanPhamKm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgSanPhamKm.BackgroundColor = Color.White;
             dtgSanPhamKm.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgSanPhamKm.Location = new Point(13, 675);
             dtgSanPhamKm.Name = "dtgSanPhamKm";
@@ -335,6 +337,8 @@
             // 
             // dtgKhuyenMai
             // 
+            dtgKhuyenMai.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgKhuyenMai.BackgroundColor = Color.White;
             dtgKhuyenMai.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgKhuyenMai.Location = new Point(13, 290);
             dtgKhuyenMai.Name = "dtgKhuyenMai";

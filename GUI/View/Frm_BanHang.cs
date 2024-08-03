@@ -207,7 +207,7 @@ namespace GUI.View
         }
         private void btn_TaoHoaDon_Click(object sender, EventArgs e)
         {
-            hoaDonSevices.CreateHD(idTk, 1);
+            hoaDonSevices.CreateHD(idTk, 4);
             LoadHD();
         }
 
@@ -238,16 +238,15 @@ namespace GUI.View
         }
         private void btn_ThanhToan_Click(object sender, EventArgs e)
         {
-            if(currentId !=null)
+            
+            if (currentId == -1) MessageBox.Show("Bạn chưa chọn hóa đơn thanh toán", "Thông báo");
+            if (currentId > 0)
             {
                 hoaDonSevices.UpdateHD(currentId, 0, null);
                 MessageBox.Show("Thanh toán thành công", "Thanh toán");
                 dtg_HoaDonCho.Rows.Clear();
                 LoadHD();
-            }
-            else if(currentId == null)
-            {
-                MessageBox.Show("Bạn chưa chọn hóa đơn thanh toán", "Thông báo");
+                currentId = -1;
             }
         }
     }

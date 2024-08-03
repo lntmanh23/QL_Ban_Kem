@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            cbb_SanPham = new ComboBox();
-            btn_TimSanPham = new Button();
-            txt_TimSanPham = new TextBox();
-            label2 = new Label();
             label1 = new Label();
             panel2 = new Panel();
             dtg_TaoHoaDon = new DataGridView();
@@ -68,63 +64,22 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(cbb_SanPham);
-            panel1.Controls.Add(btn_TimSanPham);
-            panel1.Controls.Add(txt_TimSanPham);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(3, 2);
             panel1.Name = "panel1";
             panel1.Size = new Size(813, 90);
             panel1.TabIndex = 1;
             // 
-            // cbb_SanPham
-            // 
-            cbb_SanPham.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbb_SanPham.FormattingEnabled = true;
-            cbb_SanPham.Location = new Point(594, 37);
-            cbb_SanPham.Name = "cbb_SanPham";
-            cbb_SanPham.Size = new Size(216, 39);
-            cbb_SanPham.TabIndex = 4;
-            // 
-            // btn_TimSanPham
-            // 
-            btn_TimSanPham.BackColor = Color.FromArgb(255, 192, 192);
-            btn_TimSanPham.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_TimSanPham.Location = new Point(475, 38);
-            btn_TimSanPham.Name = "btn_TimSanPham";
-            btn_TimSanPham.Size = new Size(94, 38);
-            btn_TimSanPham.TabIndex = 3;
-            btn_TimSanPham.Text = "Tìm";
-            btn_TimSanPham.UseVisualStyleBackColor = false;
-            // 
-            // txt_TimSanPham
-            // 
-            txt_TimSanPham.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_TimSanPham.Location = new Point(9, 38);
-            txt_TimSanPham.Name = "txt_TimSanPham";
-            txt_TimSanPham.Size = new Size(441, 38);
-            txt_TimSanPham.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(594, 7);
-            label2.Name = "label2";
-            label2.Size = new Size(153, 28);
-            label2.TabIndex = 1;
-            label2.Text = "Loại sản phẩm:";
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(9, 7);
+            label1.Font = new Font("Tahoma", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Tomato;
+            label1.Location = new Point(220, 21);
             label1.Name = "label1";
-            label1.Size = new Size(147, 28);
+            label1.Size = new Size(424, 48);
             label1.TabIndex = 0;
-            label1.Text = "Tên sản phẩm:";
+            label1.Text = "Windows Ice Cream";
             // 
             // panel2
             // 
@@ -415,11 +370,6 @@
 
         private Panel panel1;
 		private Panel panel2;
-		private ComboBox cbb_SanPham;
-		private Button btn_TimSanPham;
-		private TextBox txt_TimSanPham;
-		private Label label2;
-		private Label label1;
 		private Panel panel4;
 		private Panel panel5;
 		private Button btn_TaoHoaDon;
@@ -443,5 +393,6 @@
         private Label lbback;
         private Label lb_page;
         private Label lbnext;
+        private Label label1;
     }
 }

@@ -21,14 +21,14 @@ namespace DAL.Repositories
             try
             {
                 var check = _context.TaiKhoans.FirstOrDefault(p => p.TenTaiKhoan == tenTaiKhoan && p.MatKhau == matKhau);
-                if (check != null)
+                if (check == null) return "";
+                else
                 {
-                    return check.Id.ToString();
-                }else return "0";
+                    return check.Id.ToString() ;
+                }      
             }
             catch (Exception e)
             {
-
                 return "1";
             }
         }
