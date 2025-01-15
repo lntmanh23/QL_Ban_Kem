@@ -21,6 +21,7 @@ namespace DAL.Repositories
             return _context.HoaDonChiTiets.ToList(); // Lấy ra toàn bộ danh sách sản phẩm
 
         }
+        
         public List<HoaDonChiTiet> GetAllByHD(int IdHD)
         {
             return _context.HoaDonChiTiets.Where(p=>p.IdHoaDon == IdHD).ToList();

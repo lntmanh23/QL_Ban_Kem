@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BUS.Services
 {
     public class HoaDonChiTietServices
     {
         HoaDonChiTietRepos hoaDonChiTietRepos = new HoaDonChiTietRepos();
-
+        SanPhamServices sanPhamServices;
         HoaDonRepos hoaDonRepos = new HoaDonRepos();
         SanPhamRepos sanPhamRepos = new SanPhamRepos();
         LoaiSanPhamRepos loaiSanPhamRepos = new LoaiSanPhamRepos();
@@ -22,6 +23,7 @@ namespace BUS.Services
        
         public HoaDonChiTietServices()
         {
+            sanPhamServices = new SanPhamServices();
             sanPhamRepos = new SanPhamRepos();
             taiKhoanRepos = new TaiKhoanRepos();
             hoaDonRepos = new HoaDonRepos();
@@ -32,6 +34,10 @@ namespace BUS.Services
         public List<HoaDonChiTiet> GetAllHDCT()
         {
             return hoaDonChiTietRepos.GetAllHDCT();
+        }
+        public List<HoaDonChiTiet> GetAllHDByTrangThai()
+        {
+            return hoaDonChiTietRepos.GetAllHDCT().Where(c=>c.TrangThai != 1).ToList();
         }
         public List<HoaDonChiTiet> GetAllByHD(int IdHd)
         {
@@ -76,7 +82,9 @@ namespace BUS.Services
             long sum = 0;
             foreach(var item in hdct)
             {
-                sum += long.Parse(item.Gia) * (long)item.SoLuongMua + long.Parse(item.ThanhTien);
+                SanPhamRepos sprepo = new SanPhamRepos();
+                long giagiam = sanPhamServices.GetSanPhamGiamGia().Where(c => c.Id == item.IdSanPham).Select(c => c.GiaGiam).FirstOrDefault();
+                sum += giagiam;
             }
             return sum; 
         }
@@ -96,7 +104,7 @@ namespace BUS.Services
                            IdHd = a.IdHoaDon,
                            TenSp = b.TenSanPham,
                            Gia = b.GiaSanPham,
-                           Thue = Convert.ToInt32(c.Thue),
+                           
                            SoLuongMua = a.SoLuongMua,
                            ThanhTien = a.ThanhTien,
                            MoTa = ""

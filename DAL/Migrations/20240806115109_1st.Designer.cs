@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240803114714_update_database_lai")]
-    partial class update_database_lai
+    [Migration("20240806115109_1st")]
+    partial class _1st
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("GiaTri")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LoaiGiamGia")
@@ -76,9 +75,6 @@ namespace DAL.Migrations
                     b.Property<DateTime?>("NgayTao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Thue")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TongTienHD")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -86,14 +82,9 @@ namespace DAL.Migrations
                     b.Property<int?>("TrangThai")
                         .HasColumnType("int");
 
-                    b.Property<int?>("giamGiaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdTaiKhoan");
-
-                    b.HasIndex("giamGiaId");
 
                     b.ToTable("HoaDons");
                 });
@@ -107,7 +98,6 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("GhiChu")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gia")
@@ -150,16 +140,15 @@ namespace DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("MoTa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SanPhamId")
+                    b.Property<int?>("SanPhamId")
                         .HasColumnType("int");
 
                     b.Property<string>("TenLoaiSanPham")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -196,7 +185,12 @@ namespace DAL.Migrations
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
+                    b.Property<int?>("giamGiaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("giamGiaId");
 
                     b.ToTable("sanPhams");
                 });
@@ -241,13 +235,7 @@ namespace DAL.Migrations
                         .WithMany("HoaDons")
                         .HasForeignKey("IdTaiKhoan");
 
-                    b.HasOne("DAL.Models.GiamGia", "giamGia")
-                        .WithMany("HoaDons")
-                        .HasForeignKey("giamGiaId");
-
                     b.Navigation("TaiKhoan");
-
-                    b.Navigation("giamGia");
                 });
 
             modelBuilder.Entity("DAL.Models.HoaDonChiTiet", b =>
@@ -273,16 +261,23 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.SanPham", "SanPham")
                         .WithMany("LoaiSanPhams")
-                        .HasForeignKey("SanPhamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SanPhamId");
 
                     b.Navigation("SanPham");
                 });
 
+            modelBuilder.Entity("DAL.Models.SanPham", b =>
+                {
+                    b.HasOne("DAL.Models.GiamGia", "giamGia")
+                        .WithMany("SanPhams")
+                        .HasForeignKey("giamGiaId");
+
+                    b.Navigation("giamGia");
+                });
+
             modelBuilder.Entity("DAL.Models.GiamGia", b =>
                 {
-                    b.Navigation("HoaDons");
+                    b.Navigation("SanPhams");
                 });
 
             modelBuilder.Entity("DAL.Models.HoaDon", b =>

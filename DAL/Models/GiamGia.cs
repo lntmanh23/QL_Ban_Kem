@@ -15,8 +15,8 @@ namespace DAL.Models
         public string LoaiGiamGia { get; set; }
         public DateTime NgayBatDau { get; set; }
         public DateTime NgayKetThuc {  get; set; }
-        public string GiaTri { get; set; }
+        public string? GiaTri { get; set; }
         public int TrangThai { get; set; }
-        public virtual List<HoaDon> HoaDons { get; set; }   
+        public virtual List<SanPham> SanPhams { get; set; }   
     }
 }

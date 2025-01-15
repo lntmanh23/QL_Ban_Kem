@@ -20,6 +20,10 @@ namespace BUS.Services
         {
             return giamGiaRepos.GetAllGiamGia();
         }
+        public List<GiamGia> GetActiveGiamGia()
+        {
+            return giamGiaRepos.GetActiveGiamGia();
+        }
         public string CreateGiamGia(GiamGia gg)
         {
             if (giamGiaRepos.CreateGiamGia(gg))
@@ -27,6 +31,14 @@ namespace BUS.Services
                 return "Thêm thành công";
             }
             else return "Thêm thất bại";
+        }
+        public string UpdateKm(GiamGia gg,int id)
+        {
+            if (giamGiaRepos.UpdateKm(gg,id))
+            {
+                return "Sửa thành công";
+            }
+            else return "Sửa thất bại";
         }
     }
 }

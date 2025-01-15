@@ -99,6 +99,7 @@
             // 
             // btnLocHoaDon
             // 
+            btnLocHoaDon.BackColor = Color.FromArgb(255, 192, 192);
             btnLocHoaDon.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLocHoaDon.Location = new Point(1439, 66);
             btnLocHoaDon.Name = "btnLocHoaDon";
@@ -106,7 +107,7 @@
             btnLocHoaDon.TabIndex = 10;
             btnLocHoaDon.Text = "Lọc";
             btnLocHoaDon.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnLocHoaDon.UseVisualStyleBackColor = true;
+            btnLocHoaDon.UseVisualStyleBackColor = false;
             btnLocHoaDon.Click += btnLocHoaDon_Click;
             // 
             // cbbTrangThaiHd
@@ -114,6 +115,7 @@
             cbbTrangThaiHd.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbbTrangThaiHd.FormatString = "E2";
             cbbTrangThaiHd.FormattingEnabled = true;
+            cbbTrangThaiHd.Items.AddRange(new object[] { "Tất cả", "Đã thanh toán", "Chưa thanh toán" });
             cbbTrangThaiHd.Location = new Point(1191, 67);
             cbbTrangThaiHd.Name = "cbbTrangThaiHd";
             cbbTrangThaiHd.Size = new Size(242, 39);
@@ -137,13 +139,14 @@
             // 
             // btn_TimHoaDon
             // 
+            btn_TimHoaDon.BackColor = Color.FromArgb(255, 192, 192);
             btn_TimHoaDon.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_TimHoaDon.Location = new Point(520, 66);
+            btn_TimHoaDon.Location = new Point(516, 66);
             btn_TimHoaDon.Name = "btn_TimHoaDon";
             btn_TimHoaDon.Size = new Size(121, 43);
             btn_TimHoaDon.TabIndex = 6;
             btn_TimHoaDon.Text = "Tìm";
-            btn_TimHoaDon.UseVisualStyleBackColor = true;
+            btn_TimHoaDon.UseVisualStyleBackColor = false;
             btn_TimHoaDon.Click += btn_TimHoaDon_Click;
             // 
             // txt_TimHoaDon
@@ -151,8 +154,10 @@
             txt_TimHoaDon.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txt_TimHoaDon.Location = new Point(15, 66);
             txt_TimHoaDon.Name = "txt_TimHoaDon";
+            txt_TimHoaDon.PlaceholderText = "Tìm kiếm";
             txt_TimHoaDon.Size = new Size(490, 43);
             txt_TimHoaDon.TabIndex = 5;
+            txt_TimHoaDon.TextChanged += txt_TimHoaDon_TextChanged;
             // 
             // label5
             // 
@@ -204,6 +209,7 @@
             dtgHoaDon.RowHeadersWidth = 51;
             dtgHoaDon.Size = new Size(1579, 352);
             dtgHoaDon.TabIndex = 0;
+            dtgHoaDon.CellClick += dtgHoaDon_CellClick;
             // 
             // Frm_HoaDon
             // 

@@ -18,8 +18,8 @@ namespace DAL.Repositories
         public List<SanPham> GetAllSanPham()
         {
             return _context.sanPhams.ToList(); // Lấy ra toàn bộ danh sách sản phẩm
-
         }
+        
         public SanPham GetById(int id)
         {
             return _context.sanPhams.Find(id);
@@ -34,6 +34,28 @@ namespace DAL.Repositories
             }
             catch (Exception)
             {
+                return false;
+            }
+        }
+        public bool UpdateSanPham(SanPham sp,int id)
+        {
+            try
+            {
+                var update = _context.sanPhams.Find(id);
+                update.TenSanPham = sp.TenSanPham;
+                update.AnhSanPham = sp.AnhSanPham;
+                update.SoLuong = sp.SoLuong;
+                update.TrangThai = sp.TrangThai;
+                update.GiaSanPham = sp.GiaSanPham;
+                update.IdLoaiSp = sp.IdLoaiSp;
+                update.giamGiaId = sp.giamGiaId;
+                _context.sanPhams.Update(update);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception )
+            {
+
                 return false;
             }
         }

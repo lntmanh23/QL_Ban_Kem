@@ -19,6 +19,10 @@ namespace BUS.Services
         {
             return LoaiSanPhamRepos.GetAllLoaiSanPham();
         }
+        public List<LoaiSanPham> GetLoaiSanPhamkd()
+        {
+            return LoaiSanPhamRepos.GetAllLoaiSanPham().Where(c=>c.TrangThai == 0).ToList();
+        }
         public string CreateLoaiSP(LoaiSanPham lsp)
         {
             if (LoaiSanPhamRepos.CreateLoaiSP(lsp))
@@ -26,6 +30,14 @@ namespace BUS.Services
                 return "Thêm thành công";
             }
             else return "Thêm thất bại";
+        }
+        public string UpdateLoaiSP(LoaiSanPham lsp,int id)
+        {
+            if (LoaiSanPhamRepos.UpdateLoaiSP(lsp,id))
+            {
+                return "Sửa thành công";
+            }
+            else return "Sửa thất bại";
         }
     }
 }
