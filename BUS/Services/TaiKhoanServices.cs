@@ -1,5 +1,6 @@
 ﻿using DAL.Models;
 using DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,10 @@ namespace BUS.Services
     {
         TaiKhoanRepos taiKhoanRepos = new TaiKhoanRepos();
         private List<TaiKhoan> _list;
+        AppDbContext _context;
         public TaiKhoanServices()
         {
+            _context = new AppDbContext();
             _list = new List<TaiKhoan>();
             taiKhoanRepos = new TaiKhoanRepos();
         }
@@ -30,6 +33,11 @@ namespace BUS.Services
         {
             return taiKhoanRepos.GetAllTaiKhoan();
         }
+        public List<TaiKhoan> GetTaiKhoan(string taikhoan)
+        {
+            return taiKhoanRepos.GetTaiKhoan(taikhoan);
+        }
+
         public string CreateTaiKhoan(TaiKhoan tk)
         {
             if (taiKhoanRepos.CreateTaiKhoan(tk))

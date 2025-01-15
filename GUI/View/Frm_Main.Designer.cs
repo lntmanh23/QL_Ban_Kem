@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Main));
             panel1 = new Panel();
+            label1 = new Label();
+            lbTime = new Label();
             panel15 = new Panel();
             btn_TaiKhoanMain = new Button();
             panel14 = new Panel();
@@ -51,10 +54,12 @@
             panel6 = new Panel();
             btnThucDonMain = new Button();
             pnBody = new Panel();
+            pnMain = new Panel();
+            label3 = new Label();
             lbquyen = new Label();
             lbTenTaiKhoan = new Label();
             label2 = new Label();
-            label1 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             panel15.SuspendLayout();
             panel14.SuspendLayout();
@@ -67,11 +72,14 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel6.SuspendLayout();
             pnBody.SuspendLayout();
+            pnMain.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(255, 192, 192);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lbTime);
             panel1.Controls.Add(panel15);
             panel1.Controls.Add(panel14);
             panel1.Controls.Add(panel13);
@@ -86,6 +94,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(266, 1033);
             panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Tahoma", 12F, FontStyle.Bold | FontStyle.Italic);
+            label1.Location = new Point(7, 961);
+            label1.Name = "label1";
+            label1.Size = new Size(110, 24);
+            label1.TabIndex = 12;
+            label1.Text = "Thời gian:";
+            // 
+            // lbTime
+            // 
+            lbTime.AutoSize = true;
+            lbTime.Font = new Font("Tahoma", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lbTime.Location = new Point(123, 961);
+            lbTime.Name = "lbTime";
+            lbTime.Size = new Size(69, 24);
+            lbTime.TabIndex = 11;
+            lbTime.Text = "00:00";
             // 
             // panel15
             // 
@@ -132,7 +160,7 @@
             btn_DoanhThuMain.Name = "btn_DoanhThuMain";
             btn_DoanhThuMain.Size = new Size(254, 79);
             btn_DoanhThuMain.TabIndex = 6;
-            btn_DoanhThuMain.Text = "Doanh thu";
+            btn_DoanhThuMain.Text = "Thống kê";
             btn_DoanhThuMain.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_DoanhThuMain.UseVisualStyleBackColor = true;
             btn_DoanhThuMain.Click += btn_DoanhThuMain_Click;
@@ -329,15 +357,34 @@
             // 
             pnBody.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnBody.BackColor = Color.MistyRose;
+            pnBody.Controls.Add(pnMain);
             pnBody.Controls.Add(lbquyen);
             pnBody.Controls.Add(lbTenTaiKhoan);
             pnBody.Controls.Add(label2);
-            pnBody.Controls.Add(label1);
             pnBody.Controls.Add(panel6);
-            pnBody.Location = new Point(269, 3);
+            pnBody.Location = new Point(268, 2);
             pnBody.Name = "pnBody";
             pnBody.Size = new Size(1627, 1026);
             pnBody.TabIndex = 2;
+            // 
+            // pnMain
+            // 
+            pnMain.BackgroundImageLayout = ImageLayout.Stretch;
+            pnMain.Controls.Add(label3);
+            pnMain.Location = new Point(3, 69);
+            pnMain.Name = "pnMain";
+            pnMain.Size = new Size(1619, 950);
+            pnMain.TabIndex = 6;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Tahoma", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(521, 336);
+            label3.Name = "label3";
+            label3.Size = new Size(632, 97);
+            label3.TabIndex = 0;
+            label3.Text = "Dev Ice Cream";
             // 
             // lbquyen
             // 
@@ -369,15 +416,9 @@
             label2.TabIndex = 3;
             label2.Text = "Xin chào:";
             // 
-            // label1
+            // timer1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Vivaldi", 48F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(397, 412);
-            label1.Name = "label1";
-            label1.Size = new Size(913, 95);
-            label1.TabIndex = 0;
-            label1.Text = "Delicious Ice Cream and Tea";
+            timer1.Tick += timer1_Tick;
             // 
             // Frm_Main
             // 
@@ -392,6 +433,7 @@
             Text = "Main";
             Load += Frm_Main_Load;
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel15.ResumeLayout(false);
             panel14.ResumeLayout(false);
             panel13.ResumeLayout(false);
@@ -404,6 +446,8 @@
             panel6.ResumeLayout(false);
             pnBody.ResumeLayout(false);
             pnBody.PerformLayout();
+            pnMain.ResumeLayout(false);
+            pnMain.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -420,7 +464,6 @@
         private Button btn_HoaDonMain;
         private Button btnThucDonMain;
         private Panel pnBody;
-		private Label label1;
 		private Button btn_BanHang;
 		private Panel panel12;
 		private Button btn_ThucDonMain;
@@ -435,5 +478,10 @@
         private Label lbTenTaiKhoan;
         private Label label2;
         private Label lbquyen;
+        private Panel pnMain;
+        private Label lbTime;
+        private System.Windows.Forms.Timer timer1;
+        private Label label1;
+        private Label label3;
     }
 }

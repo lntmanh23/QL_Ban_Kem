@@ -19,8 +19,11 @@ namespace DAL.Models
         public int SoLuong { get; set; }
         public int TrangThai { get; set; }
         public string AnhSanPham { get; set; }
+        [ForeignKey(nameof(GiamGia))]
+        public int? giamGiaId {  get; set; }
         public virtual List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
-        public virtual List<LoaiSanPham > LoaiSanPhams { get; set; }
+        public virtual LoaiSanPham  LoaiSanPham { get; set; }
+        public virtual GiamGia giamGia { get; set; }
 
     }
 }

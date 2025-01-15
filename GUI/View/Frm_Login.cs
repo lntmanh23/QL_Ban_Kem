@@ -17,11 +17,13 @@ namespace GUI.View
     {
         AppDbContext _context;
         TaiKhoanServices TaiKhoanServices;
+
         public Frm_Login()
         {
-          
+            
             _context = new AppDbContext();
             InitializeComponent();
+            
             registerEvent();
         }
         #region
@@ -40,15 +42,21 @@ namespace GUI.View
         private void btn_Login_Click(object sender, EventArgs e)
         {
             TaiKhoanServices = new TaiKhoanServices();
+            List<TaiKhoan> tk = new List<TaiKhoan>();
             if (txtUser != null && txtPassWord != null)
             {
                 string tenTaiKhoan = txtUser.Text;
                 string matKhau = txtPassWord.Text;
                 string thongTinTk = TaiKhoanServices.Login(tenTaiKhoan, matKhau);
+                var ten = _context.TaiKhoans.FirstOrDefault(p=>p.TenTaiKhoan == tenTaiKhoan);
+                int trangthai1 = ten.TrangThai;
                 if (string.IsNullOrEmpty(thongTinTk))
                 {
                     MessageBox.Show("Đăng nhập thất bại", "Thông báo");
-                }     
+                }else if (trangthai1 != 0)
+                {
+                    MessageBox.Show("Nhân viên này đã nghỉ làm, không thể đăng nhập", "Thông báo");
+                }
                 else
                 {
                     int idTk = int.Parse(TaiKhoanServices.Login(tenTaiKhoan, matKhau));

@@ -36,6 +36,29 @@ namespace DAL.Repositories
                 return false;
             }
         }
+        public bool UpdateLoaiSP(LoaiSanPham lsp,int id)
+        {
+            try
+            {
+                var update = _context.loaiSanPhams.Find(id);
+                if(update == null)
+                {
+                    return false ;
+                }
+                else
+                {
+                    update.TenLoaiSanPham = lsp.TenLoaiSanPham;
+                    update.TrangThai = lsp.TrangThai;
+                    _context.loaiSanPhams.Update(update);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
     
 }

@@ -19,8 +19,8 @@ namespace GUI.View
         TaiKhoanServices TaiKhoanServices = new TaiKhoanServices();
         int idTk;
         string thongTinTk;
-        public Frm_Main(int idTk,string thongTinTK)
-        {  
+        public Frm_Main(int idTk, string thongTinTK)
+        {
             this.idTk = idTk;
             this.thongTinTk = thongTinTK;
             InitializeComponent();
@@ -84,7 +84,7 @@ namespace GUI.View
         {
             lbTenTaiKhoan.Text = TaiKhoanServices.GetAllTaiKhoan().Where(p => p.Id == idTk).Select(p => p.TenTaiKhoan).FirstOrDefault();
             lbquyen.Text = TaiKhoanServices.GetAllTaiKhoan().Where(p => p.Id == idTk).Select(p => Convert.ToString(p.Quyen)).FirstOrDefault();
-            if(lbquyen.Text != "0")
+            if (lbquyen.Text != "0")
             {
                 lbquyen.Visible = false;
                 btn_DoanhThuMain.Visible = false;
@@ -97,6 +97,13 @@ namespace GUI.View
             {
                 lbquyen.Visible = false;
             }
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Interval = 1000; // Cứ sau 1000ms = 1s sẽ tái kích hoạt sk
+            lbTime.Text = DateTime.Now.ToString("hh:mm:ss");
         }
     }
 }

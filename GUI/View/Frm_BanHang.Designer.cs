@@ -32,21 +32,19 @@
             label1 = new Label();
             panel2 = new Panel();
             dtg_TaoHoaDon = new DataGridView();
-            btn_SuaHoaDon = new Button();
             btn_TaoHoaDon = new Button();
             panel4 = new Panel();
+            txtMaHoaDon = new TextBox();
+            label2 = new Label();
             btn_ThanhToan = new Button();
-            btn_HuyHD = new Button();
             txtTienThua = new TextBox();
             txt_TienKhachTra = new TextBox();
             cbb_LoaiThanhToan = new ComboBox();
-            txt_TongTienHoaDon = new TextBox();
             txt_TongTienSP = new TextBox();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
-            label4 = new Label();
             panel5 = new Panel();
             dtg_HoaDonCho = new DataGridView();
             label3 = new Label();
@@ -75,7 +73,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Tahoma", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Tomato;
-            label1.Location = new Point(220, 21);
+            label1.Location = new Point(202, 21);
             label1.Name = "label1";
             label1.Size = new Size(424, 48);
             label1.TabIndex = 0;
@@ -84,7 +82,6 @@
             // panel2
             // 
             panel2.Controls.Add(dtg_TaoHoaDon);
-            panel2.Controls.Add(btn_SuaHoaDon);
             panel2.Controls.Add(btn_TaoHoaDon);
             panel2.Location = new Point(822, 2);
             panel2.Name = "panel2";
@@ -103,76 +100,71 @@
             dtg_TaoHoaDon.TabIndex = 2;
             dtg_TaoHoaDon.CellClick += dtg_TaoHoaDon_CellClick;
             // 
-            // btn_SuaHoaDon
-            // 
-            btn_SuaHoaDon.BackColor = Color.FromArgb(255, 192, 192);
-            btn_SuaHoaDon.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_SuaHoaDon.Location = new Point(681, 10);
-            btn_SuaHoaDon.Name = "btn_SuaHoaDon";
-            btn_SuaHoaDon.Size = new Size(94, 38);
-            btn_SuaHoaDon.TabIndex = 1;
-            btn_SuaHoaDon.Text = "Sửa";
-            btn_SuaHoaDon.UseVisualStyleBackColor = false;
-            // 
             // btn_TaoHoaDon
             // 
             btn_TaoHoaDon.BackColor = Color.FromArgb(255, 192, 192);
             btn_TaoHoaDon.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_TaoHoaDon.Location = new Point(581, 10);
             btn_TaoHoaDon.Name = "btn_TaoHoaDon";
-            btn_TaoHoaDon.Size = new Size(94, 38);
+            btn_TaoHoaDon.Size = new Size(194, 38);
             btn_TaoHoaDon.TabIndex = 0;
-            btn_TaoHoaDon.Text = "Tạo";
+            btn_TaoHoaDon.Text = "Tạo hóa đơn";
             btn_TaoHoaDon.UseVisualStyleBackColor = false;
             btn_TaoHoaDon.Click += btn_TaoHoaDon_Click;
             // 
             // panel4
             // 
+            panel4.Controls.Add(txtMaHoaDon);
+            panel4.Controls.Add(label2);
             panel4.Controls.Add(btn_ThanhToan);
-            panel4.Controls.Add(btn_HuyHD);
             panel4.Controls.Add(txtTienThua);
             panel4.Controls.Add(txt_TienKhachTra);
             panel4.Controls.Add(cbb_LoaiThanhToan);
-            panel4.Controls.Add(txt_TongTienHoaDon);
             panel4.Controls.Add(txt_TongTienSP);
             panel4.Controls.Add(label8);
             panel4.Controls.Add(label7);
             panel4.Controls.Add(label6);
             panel4.Controls.Add(label5);
-            panel4.Controls.Add(label4);
             panel4.Location = new Point(822, 489);
             panel4.Name = "panel4";
             panel4.Size = new Size(782, 487);
             panel4.TabIndex = 4;
             // 
+            // txtMaHoaDon
+            // 
+            txtMaHoaDon.Enabled = false;
+            txtMaHoaDon.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtMaHoaDon.Location = new Point(244, 23);
+            txtMaHoaDon.Name = "txtMaHoaDon";
+            txtMaHoaDon.Size = new Size(531, 38);
+            txtMaHoaDon.TabIndex = 15;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(7, 23);
+            label2.Name = "label2";
+            label2.Size = new Size(149, 31);
+            label2.TabIndex = 14;
+            label2.Text = "Mã hóa đơn:";
+            // 
             // btn_ThanhToan
             // 
             btn_ThanhToan.BackColor = Color.FromArgb(255, 192, 192);
             btn_ThanhToan.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_ThanhToan.Location = new Point(455, 337);
+            btn_ThanhToan.Location = new Point(292, 343);
             btn_ThanhToan.Name = "btn_ThanhToan";
-            btn_ThanhToan.Size = new Size(220, 122);
+            btn_ThanhToan.Size = new Size(232, 122);
             btn_ThanhToan.TabIndex = 13;
             btn_ThanhToan.Text = "Thanh Toán";
             btn_ThanhToan.UseVisualStyleBackColor = false;
             btn_ThanhToan.Click += btn_ThanhToan_Click;
             // 
-            // btn_HuyHD
-            // 
-            btn_HuyHD.BackColor = Color.FromArgb(255, 192, 192);
-            btn_HuyHD.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_HuyHD.Location = new Point(128, 337);
-            btn_HuyHD.Name = "btn_HuyHD";
-            btn_HuyHD.Size = new Size(220, 122);
-            btn_HuyHD.TabIndex = 12;
-            btn_HuyHD.Text = "Hủy";
-            btn_HuyHD.UseVisualStyleBackColor = false;
-            btn_HuyHD.Click += btn_HuyHD_Click;
-            // 
             // txtTienThua
             // 
             txtTienThua.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtTienThua.Location = new Point(581, 182);
+            txtTienThua.Location = new Point(581, 190);
             txtTienThua.Name = "txtTienThua";
             txtTienThua.Size = new Size(194, 38);
             txtTienThua.TabIndex = 11;
@@ -180,33 +172,28 @@
             // txt_TienKhachTra
             // 
             txt_TienKhachTra.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_TienKhachTra.Location = new Point(244, 182);
+            txt_TienKhachTra.Location = new Point(244, 189);
             txt_TienKhachTra.Name = "txt_TienKhachTra";
             txt_TienKhachTra.Size = new Size(203, 38);
             txt_TienKhachTra.TabIndex = 10;
+            txt_TienKhachTra.TextChanged += txt_TienKhachTra_TextChanged;
             // 
             // cbb_LoaiThanhToan
             // 
             cbb_LoaiThanhToan.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbb_LoaiThanhToan.FormattingEnabled = true;
+            cbb_LoaiThanhToan.Items.AddRange(new object[] { "Chuyển khoản", "Tiền mặt" });
             cbb_LoaiThanhToan.Location = new Point(244, 267);
             cbb_LoaiThanhToan.Name = "cbb_LoaiThanhToan";
             cbb_LoaiThanhToan.Size = new Size(531, 39);
             cbb_LoaiThanhToan.TabIndex = 9;
-            // 
-            // txt_TongTienHoaDon
-            // 
-            txt_TongTienHoaDon.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_TongTienHoaDon.Location = new Point(244, 94);
-            txt_TongTienHoaDon.Name = "txt_TongTienHoaDon";
-            txt_TongTienHoaDon.Size = new Size(531, 38);
-            txt_TongTienHoaDon.TabIndex = 7;
+            cbb_LoaiThanhToan.SelectedIndexChanged += cbb_LoaiThanhToan_SelectedIndexChanged;
             // 
             // txt_TongTienSP
             // 
             txt_TongTienSP.Enabled = false;
             txt_TongTienSP.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_TongTienSP.Location = new Point(244, 9);
+            txt_TongTienSP.Location = new Point(244, 105);
             txt_TongTienSP.Name = "txt_TongTienSP";
             txt_TongTienSP.Size = new Size(531, 38);
             txt_TongTienSP.TabIndex = 6;
@@ -225,7 +212,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(453, 185);
+            label7.Location = new Point(453, 192);
             label7.Name = "label7";
             label7.Size = new Size(122, 31);
             label7.TabIndex = 3;
@@ -235,7 +222,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(6, 185);
+            label6.Location = new Point(7, 191);
             label6.Name = "label6";
             label6.Size = new Size(172, 31);
             label6.TabIndex = 2;
@@ -245,21 +232,11 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(6, 101);
+            label5.Location = new Point(7, 105);
             label5.Name = "label5";
             label5.Size = new Size(218, 31);
             label5.TabIndex = 1;
             label5.Text = "Tổng tiền hóa đơn:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(6, 12);
-            label4.Name = "label4";
-            label4.Size = new Size(232, 31);
-            label4.TabIndex = 0;
-            label4.Text = "Tổng tiền sản phẩm:";
             // 
             // panel5
             // 
@@ -376,23 +353,21 @@
 		private DataGridView dtg_HoaDonCho;
 		private Label label3;
 		private TableLayoutPanel tlp_SanPham;
-		private Button btn_SuaHoaDon;
 		private DataGridView dtg_TaoHoaDon;
 		private Label label8;
 		private Label label7;
 		private Label label6;
 		private Label label5;
-		private Label label4;
-		private TextBox txt_TongTienHoaDon;
 		private TextBox txt_TongTienSP;
 		private TextBox txtTienThua;
 		private TextBox txt_TienKhachTra;
 		private ComboBox cbb_LoaiThanhToan;
 		private Button btn_ThanhToan;
-		private Button btn_HuyHD;
         private Label lbback;
         private Label lb_page;
         private Label lbnext;
         private Label label1;
+        private TextBox txtMaHoaDon;
+        private Label label2;
     }
 }

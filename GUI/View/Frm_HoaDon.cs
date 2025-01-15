@@ -1,5 +1,6 @@
 ﻿using BUS.Services;
 using DAL.Models;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GUI.View
 {
@@ -17,6 +19,7 @@ namespace GUI.View
     {
         HoaDonSevices hoaDonSevices;
         HoaDonChiTietServices hoaDonChiTietServices;
+        int currentId = -1;
         public Frm_HoaDon()
         {
             hoaDonChiTietServices = new HoaDonChiTietServices();
@@ -25,59 +28,47 @@ namespace GUI.View
         }
         public void LoadHoaDon()
         {
-            dtgHoaDon.Controls.Clear();
+            dtgHoaDon.Rows.Clear();
             var hd = hoaDonSevices.GetAllHoaDon();
-            dtgHoaDon.ColumnCount = 6;
+            dtgHoaDon.ColumnCount = 4;
             dtgHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
             dtgHoaDon.Columns[1].HeaderText = "Mã tài khoản";
             dtgHoaDon.Columns[2].HeaderText = "Ngày tạo hóa đơn";
-            dtgHoaDon.Columns[3].HeaderText = "Giá được giảm";
-            dtgHoaDon.Columns[4].HeaderText = "Thuế";
-            dtgHoaDon.Columns[5].HeaderText = "Trạng thái";
+            dtgHoaDon.Columns[3].HeaderText = "Trạng thái";
             foreach (var item in hd)
             {
                 string trangthai = item.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
-                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, item.GiaDuocGiam, item.Thue, trangthai);
+                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao,  trangthai);
             }
 
         }
         public void LoadHoaDonChiTiet()
         {
-            dtgHoaDonChiTiet.Controls.Clear();
-            var hdct = hoaDonChiTietServices.GetAllHDCT();
-            dtgHoaDonChiTiet.ColumnCount = 8;
-            dtgHoaDonChiTiet.Columns[0].HeaderText = "Mã hóa đơn chi tiết";
+            HoaDonChiTietRepos repos = new HoaDonChiTietRepos();
+            var allhdct = repos.GetAllByHD(currentId);
+            dtgHoaDonChiTiet.Rows.Clear();
+            dtgHoaDonChiTiet.ColumnCount = 6;
+            dtgHoaDonChiTiet.Columns[0].HeaderText = "Mã hóa đơn";
             dtgHoaDonChiTiet.Columns[1].HeaderText = "Mã sản phẩm";
-            dtgHoaDonChiTiet.Columns[2].HeaderText = "Mã hóa đơn";
-            dtgHoaDonChiTiet.Columns[3].HeaderText = "Ngày tạo hóa đơn";
-            dtgHoaDonChiTiet.Columns[4].HeaderText = "Giá";
-            dtgHoaDonChiTiet.Columns[5].HeaderText = "Số lượng mua";
-            dtgHoaDonChiTiet.Columns[6].HeaderText = "Thành tiền";
-            dtgHoaDonChiTiet.Columns[7].HeaderText = "Ghi chú";
-            foreach (var item in hdct)
+            dtgHoaDonChiTiet.Columns[2].HeaderText = "Tên sản phẩm";
+            dtgHoaDonChiTiet.Columns[3].HeaderText = "Giá bán";
+            dtgHoaDonChiTiet.Columns[4].HeaderText = "Số lượng";
+            dtgHoaDonChiTiet.Columns[5].HeaderText = "Thành tiền";
+            foreach (var data in allhdct)
             {
-                //DateTime start = dateTuNgay.Value.Date;
-                //DateTime end = dateDenNgay.Value.Date;
-                //var hdLoc = hoaDonChiTietServices.GetAllHDCT().Where(hd => hd.NgayLapHoaDon >= start && hd.NgayLapHoaDon <= end).ToList();
-                dtgHoaDonChiTiet.Rows.Add(item.Id, item.IdSanPham, item.IdHoaDon, item.NgayLapHoaDon, item.Gia, item.SoLuongMua, item.ThanhTien, item.GhiChu);
+                SanPhamRepos sprepo = new SanPhamRepos();
+                string tensp = sprepo.GetAllSanPham().Where(c => c.Id == data.IdSanPham).Select(c => c.TenSanPham).FirstOrDefault();
+                int thanhtien = data.SoLuongMua * Convert.ToInt32(data.Gia);
+                dtgHoaDonChiTiet.Rows.Add(data.IdHoaDon, data.IdSanPham, tensp, data.Gia, data.SoLuongMua, thanhtien);
             }
-
         }
-        //public void LocHD()
-        //{
-        //    DateTime start = dateTuNgay.Value.Date;
-        //    DateTime end = dateDenNgay.Value.Date;
-        //    var hdLoc = hoaDonChiTietServices.GetAllHDCT().Where(hd => hd.NgayLapHoaDon >= start && hd.NgayLapHoaDon <= end).ToList();
-        //    dtgHoaDonChiTiet.DataSource = hdLoc;
-        //}
-
+        
         private void Frm_HoaDon_Load(object sender, EventArgs e)
         {
             LoadHoaDon();
-            LoadHoaDonChiTiet();
+            //LoadHoaDonChiTiet();
             LoadHdTheoNgay();
-            LoadTT();
-
+            cbbTrangThaiHd.SelectedIndex = 0;
         }
         public void LoadHdTheoNgay()
         {
@@ -89,57 +80,31 @@ namespace GUI.View
         {
             DateTime startDate = dateTuNgay.Value.Date;
             DateTime endDate = dateDenNgay.Value.Date;
-
-            // Lọc danh sách hóa đơn chi tiết dựa trên khoảng thời gian
-            var filteredData = hoaDonChiTietServices.GetAllHDCT()
-                .Where(item => item.NgayLapHoaDon >= startDate && item.NgayLapHoaDon <= endDate)
-                .ToList();
             var filteredData2 = hoaDonSevices.GetAllHoaDon()
                 .Where(item => item.NgayTao >= startDate && item.NgayTao <= endDate)
                 .ToList();
-
-            // Xóa dữ liệu hiện tại trong DataGridView
             dtgHoaDonChiTiet.Rows.Clear();
             dtgHoaDon.Rows.Clear();
-            // Thêm dữ liệu được lọc vào DataGridView
-            foreach (var item in filteredData)
-            {
-                dtgHoaDonChiTiet.Rows.Add(item.Id, item.IdSanPham, item.IdHoaDon, item.NgayLapHoaDon, item.Gia, item.SoLuongMua, item.ThanhTien, item.GhiChu);
-            }
             foreach (var item in filteredData2)
             {
                 string trangthai = item.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
-                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, item.GiaDuocGiam, item.Thue, trangthai);
+                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, trangthai);
             }
         }
 
         private void DateDenNgay_ValueChanged(object? sender, EventArgs e)
         {
             DateTime startDate = dateTuNgay.Value.Date;
-            DateTime endDate = dateDenNgay.Value.Date;
-
-            // Lọc danh sách hóa đơn chi tiết dựa trên khoảng thời gian
-            var filteredData = hoaDonChiTietServices.GetAllHDCT()
-                .Where(item => item.NgayLapHoaDon >= startDate && item.NgayLapHoaDon <= endDate)
-                .ToList();
+            DateTime endDate = dateDenNgay.Value.Date;     
             var filteredData2 = hoaDonSevices.GetAllHoaDon()
                 .Where(item => item.NgayTao >= startDate && item.NgayTao <= endDate)
                 .ToList();
-
-            // Xóa dữ liệu hiện tại trong DataGridView
             dtgHoaDonChiTiet.Rows.Clear();
             dtgHoaDon.Rows.Clear();
-
-            // Thêm dữ liệu được lọc vào DataGridView
-            foreach (var item in filteredData)
-            {
-                dtgHoaDonChiTiet.Rows.Add(item.Id, item.IdSanPham, item.IdHoaDon, item.NgayLapHoaDon, item.Gia, item.SoLuongMua, item.ThanhTien, item.GhiChu);
-
-            }
             foreach (var item in filteredData2)
             {
                 string trangthai = item.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
-                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, item.GiaDuocGiam, item.Thue, trangthai);
+                dtgHoaDon.Rows.Add(item.Id, item.IdTaiKhoan, item.NgayTao, trangthai);
             }
         }
         public void LoadHDById()
@@ -149,19 +114,19 @@ namespace GUI.View
             dtgHoaDon.Rows.Clear();
             if (tim != null)
             {
-                dtgHoaDon.ColumnCount = 6;
+                dtgHoaDon.ColumnCount = 5;
                 dtgHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
                 dtgHoaDon.Columns[1].HeaderText = "Mã tài khoản";
                 dtgHoaDon.Columns[2].HeaderText = "Ngày tạo hóa đơn";
                 dtgHoaDon.Columns[3].HeaderText = "Giá được giảm";
-                dtgHoaDon.Columns[4].HeaderText = "Thuế";
-                dtgHoaDon.Columns[5].HeaderText = "Trạng thái";
+
+                dtgHoaDon.Columns[4].HeaderText = "Trạng thái";
                 string trangthai = tim.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
                 foreach (var x in hoaDonChiTietServices.GetAllHDCT())
                 {
                     cbbTrangThaiHd.Items.Add(x);
                 }
-                dtgHoaDon.Rows.Add(tim.Id, tim.IdTaiKhoan, tim.NgayTao, tim.GiaDuocGiam, tim.Thue, trangthai);
+                dtgHoaDon.Rows.Add(tim.Id, tim.IdTaiKhoan, tim.NgayTao, tim.GiaDuocGiam, trangthai);
             }
             else
             {
@@ -195,55 +160,88 @@ namespace GUI.View
         private void btn_TimHoaDon_Click(object sender, EventArgs e)
         {
             LoadHDById();
-            LoadHDCTById();
+            //LoadHDCTById();
 
         }
-        
-
         private void btnLocHoaDon_Click(object sender, EventArgs e)
         {
-            LoadHDByStatus();
-        }
-        public void LoadHDByStatus()
-        {
-            string status = cbbTrangThaiHd.Text;
-            var tim = hoaDonSevices.GetAllHoaDon().FirstOrDefault(item => Convert.ToString(item.TrangThai) == status);
-            dtgHoaDon.Rows.Clear();
-            if (tim != null)
+            if(cbbTrangThaiHd.SelectedIndex == 2)
             {
-                dtgHoaDon.ColumnCount = 6;
+                LoadHDChuaTT();
+            }
+            else if(cbbTrangThaiHd.SelectedIndex == 1)
+            {
+                LoadHDDaTT();
+            }
+            else
+            {
+                LoadHoaDon();
+            }
+            
+        }
+        public void LoadHDChuaTT()
+        {
+            var hd = hoaDonSevices.GetAllHdChuaThanhToan();
+            dtgHoaDon.Rows.Clear();
+            if (hd != null)
+            {
+                dtgHoaDon.ColumnCount = 4;
                 dtgHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
                 dtgHoaDon.Columns[1].HeaderText = "Mã tài khoản";
                 dtgHoaDon.Columns[2].HeaderText = "Ngày tạo hóa đơn";
-                dtgHoaDon.Columns[3].HeaderText = "Giá được giảm";
-                dtgHoaDon.Columns[4].HeaderText = "Thuế";
-                dtgHoaDon.Columns[5].HeaderText = "Trạng thái";
-                string trangthai = tim.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
-                foreach (var x in hoaDonChiTietServices.GetAllHDCT())
+                dtgHoaDon.Columns[3].HeaderText = "Trạng thái";
+                foreach(var x in hd)
                 {
-                    cbbTrangThaiHd.Items.Add(x);
+                    string trangthai = x.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
+                    dtgHoaDon.Rows.Add(x.Id, x.IdTaiKhoan, x.NgayTao, trangthai);
                 }
-                dtgHoaDon.Rows.Add(tim.Id, tim.IdTaiKhoan, tim.NgayTao, tim.GiaDuocGiam, tim.Thue, trangthai);
             }
             else
             {
                 MessageBox.Show("Không tìm thấy hóa đơn", "Thông báo");
             }
         }
-        public void LoadTT()
+        public void LoadHDDaTT()
         {
-            HoaDon hd = new HoaDon();
-            foreach (var item in hoaDonSevices.GetAllHoaDon())
+            var hd = hoaDonSevices.GetAllHdDaThanhToan();
+            dtgHoaDon.Rows.Clear();
+            if (hd != null)
             {
-                cbbTrangThaiHd.Items.Add(item.TrangThai.ToString());
-                
+                dtgHoaDon.ColumnCount = 4;
+                dtgHoaDon.Columns[0].HeaderText = "Mã hóa đơn";
+                dtgHoaDon.Columns[1].HeaderText = "Mã tài khoản";
+                dtgHoaDon.Columns[2].HeaderText = "Ngày tạo hóa đơn";
+                dtgHoaDon.Columns[3].HeaderText = "Trạng thái";
+                foreach (var x in hd)
+                {
+                    string trangthai = x.TrangThai == 0 ? "Đã thanh toán" : "Chưa thanh toán";
+                    dtgHoaDon.Rows.Add(x.Id, x.IdTaiKhoan, x.NgayTao, trangthai);
+                }
             }
-            cbbTrangThaiHd.SelectedIndex = 0;
-            
+            else
+            {
+                MessageBox.Show("Không tìm thấy hóa đơn", "Thông báo");
+            }
         }
+
         private void cbbTrangThaiHd_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbbTrangThaiHd.Items.Clear();
+            
+        }
+
+        private void dtgHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dtgHoaDon.Rows[e.RowIndex];
+            currentId = (int)row.Cells[0].Value;
+            LoadHoaDonChiTiet();
+        }
+
+        private void txt_TimHoaDon_TextChanged(object sender, EventArgs e)
+        {
+            if(txt_TimHoaDon.Text == "")
+            {
+                LoadHoaDon();
+            }
         }
     }
 }

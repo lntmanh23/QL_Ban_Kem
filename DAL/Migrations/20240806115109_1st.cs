@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class update_database_lai : Migration
+    public partial class _1st : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,30 +21,12 @@ namespace DAL.Migrations
                     LoaiGiamGia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NgayBatDau = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NgayKetThuc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GiaTri = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GiaTri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrangThai = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_giamGias", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sanPhams",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdLoaiSp = table.Column<int>(type: "int", nullable: true),
-                    TenSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GiaSanPham = table.Column<int>(type: "int", nullable: false),
-                    SoLuong = table.Column<int>(type: "int", nullable: false),
-                    TrangThai = table.Column<int>(type: "int", nullable: false),
-                    AnhSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sanPhams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,24 +48,27 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "loaiSanPhams",
+                name: "sanPhams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenLoaiSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SanPhamId = table.Column<int>(type: "int", nullable: false)
+                    IdLoaiSp = table.Column<int>(type: "int", nullable: true),
+                    TenSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GiaSanPham = table.Column<int>(type: "int", nullable: false),
+                    SoLuong = table.Column<int>(type: "int", nullable: false),
+                    TrangThai = table.Column<int>(type: "int", nullable: false),
+                    AnhSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    giamGiaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_loaiSanPhams", x => x.Id);
+                    table.PrimaryKey("PK_sanPhams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_loaiSanPhams_sanPhams_SanPhamId",
-                        column: x => x.SanPhamId,
-                        principalTable: "sanPhams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_sanPhams_giamGias_giamGiaId",
+                        column: x => x.giamGiaId,
+                        principalTable: "giamGias",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -96,9 +81,7 @@ namespace DAL.Migrations
                     NgayTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     GiaDuocGiam = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrangThai = table.Column<int>(type: "int", nullable: true),
-                    Thue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TongTienHD = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    giamGiaId = table.Column<int>(type: "int", nullable: true)
+                    TongTienHD = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,10 +91,25 @@ namespace DAL.Migrations
                         column: x => x.IdTaiKhoan,
                         principalTable: "TaiKhoans",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "loaiSanPhams",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenLoaiSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TrangThai = table.Column<int>(type: "int", nullable: false),
+                    SanPhamId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_loaiSanPhams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HoaDons_giamGias_giamGiaId",
-                        column: x => x.giamGiaId,
-                        principalTable: "giamGias",
+                        name: "FK_loaiSanPhams_sanPhams_SanPhamId",
+                        column: x => x.SanPhamId,
+                        principalTable: "sanPhams",
                         principalColumn: "Id");
                 });
 
@@ -128,7 +126,7 @@ namespace DAL.Migrations
                     SoLuongMua = table.Column<int>(type: "int", nullable: false),
                     ThanhTien = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<int>(type: "int", nullable: true),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -158,11 +156,6 @@ namespace DAL.Migrations
                 column: "IdSanPham");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HoaDons_giamGiaId",
-                table: "HoaDons",
-                column: "giamGiaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_HoaDons_IdTaiKhoan",
                 table: "HoaDons",
                 column: "IdTaiKhoan");
@@ -171,6 +164,11 @@ namespace DAL.Migrations
                 name: "IX_loaiSanPhams_SanPhamId",
                 table: "loaiSanPhams",
                 column: "SanPhamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sanPhams_giamGiaId",
+                table: "sanPhams",
+                column: "giamGiaId");
         }
 
         /// <inheritdoc />

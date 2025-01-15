@@ -21,7 +21,7 @@ namespace DAL.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-4J2MO29\\PH19847;Database=QuanLyBanKem;Trusted_Connection=True;TrustServerCertificate=True;");
-
+    
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -76,11 +76,16 @@ namespace DAL.Repositories
             try
             {
                 var hd = _context.HoaDons.Find(id);
+                if (hd == null)
+                {
+                    return false ;
+                }
                 hd.TrangThai = trangthai;
-                if(tongTienHD != null)
+                if (tongTienHD != null)
                 {
                     hd.TongTienHD = Convert.ToString(tongTienHD);
                 }
+
                 _context.SaveChanges();
                 return true;
             }

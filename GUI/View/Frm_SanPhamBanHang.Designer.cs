@@ -60,9 +60,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 270);
             label2.Name = "label2";
-            label2.Size = new Size(51, 20);
+            label2.Size = new Size(57, 20);
             label2.TabIndex = 2;
-            label2.Text = "..............";
+            label2.Text = "100000";
             // 
             // label3
             // 
@@ -83,11 +83,13 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 243);
+            label4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.Red;
+            label4.Location = new Point(12, 238);
             label4.Name = "label4";
-            label4.Size = new Size(72, 20);
+            label4.Size = new Size(72, 25);
             label4.TabIndex = 5;
-            label4.Text = "Số lượng:";
+            label4.Text = "100000";
             // 
             // label5
             // 
